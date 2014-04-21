@@ -7,9 +7,13 @@ category: blog
 ###缘起
 
 ---
+
 今天在coding的时候需要获得自己本机IP,本来以为是一件很简单的事情,用getsockname就可以搞定了呀~.但仔细想想之后,好像又不是那么回事.当我PC同时连上有线和无线的时候,有两个IP,如果我希望我拿到就是WIFI的那个IP,貌似就不是那么容易的事情了.于是继续google+baidu+man-page.最后决定用ioctl这个神器=.=
 
 ###收获
+
+---
+
 我主要参考的是这篇[文章](http://zhumeng8337797.blog.163.com/blog/static/1007689142012311082638/),很长..相当长...但是其实是把一样的内容重复了好几遍,我把链接放在这里只是因为我真的是看的它...
 
 相关test代码,老习惯,我还是放在了[我github/tbox项目中](http://github.com/andycoder7/tbox/blob/master/get_local_ips/test.c)中.ioctl没什么好讲的,这个神器大家都懂得~,总的来说,主要是两个结构体:`ifreq`和`ifconf`,他们都是在/usr/include/linux/if.h中定义的,额,反正在我的系统(ubuntu14.04)里是在这个位置的...下面是我节选出来的两个结构体的定义
@@ -66,6 +70,7 @@ struct ifconf:
 ###拓展
 
 ---
+
 1. 其实这三种类型: `sockaddr_in.sin_addr == long == unsigned char[4]`<br/>
 *Ps:关于如何找到位置类型所在的头文件,然后查看其具体的定义,可以使用 `grep -R`,例如在这里,我们用 `grep -R 'sin_addr' /usr/include/` 找到这个变量在/usr/include/netinet/in.h中定义,然后就进入这个文件自己找吧:)*
 
@@ -92,3 +97,5 @@ struct ifconf:
 > inet_aton() returns nonzero if the address is valid, zero if not.
 
 - 当然还有很多其他类似的,具体参考inet_addr的man-page吧: `man inet_addr`
+
+*Andy(andy.at.working@gmail.com) 2014-04-17*
