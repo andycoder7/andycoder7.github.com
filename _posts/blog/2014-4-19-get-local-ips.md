@@ -1,12 +1,8 @@
 ---
 layout: post
-title: 获取本机IP
+title: Get Local IP Information by SIOCFIGCONF
 category: blog
-description: 通过ioctl获取本机IP
 ---
-
-Get Local IP Information by SIOCFIGCONF
-===
 
 ###缘起
 
@@ -16,7 +12,7 @@ Get Local IP Information by SIOCFIGCONF
 ###收获
 我主要参考的是这篇[文章](http://zhumeng8337797.blog.163.com/blog/static/1007689142012311082638/),很长..相当长...但是其实是把一样的内容重复了好几遍,我把链接放在这里只是因为我真的是看的它...
 
-相关test代码,老习惯,我还是放在了[本目录下的test.c](test.c)中.ioctl没什么好讲的,这个神器大家都懂得~,总的来说,主要是两个结构体:`ifreq`和`ifconf`,他们都是在/usr/include/linux/if.h中定义的,额,反正在我的系统(ubuntu14.04)里是在这个位置的...下面是我节选出来的两个结构体的定义
+相关test代码,老习惯,我还是放在了[我github/tbox项目中](http://github.com/andycoder7/tbox/blob/master/get_local_ips/test.c)中.ioctl没什么好讲的,这个神器大家都懂得~,总的来说,主要是两个结构体:`ifreq`和`ifconf`,他们都是在/usr/include/linux/if.h中定义的,额,反正在我的系统(ubuntu14.04)里是在这个位置的...下面是我节选出来的两个结构体的定义
 
 struct ifreq:
 
