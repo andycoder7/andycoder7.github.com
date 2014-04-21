@@ -5,7 +5,7 @@ pygments: true
 paginate: 8
 permalink: /:title
 
-title: AndyCoder.me
+title: andycoder.me
 url: http://andycoder.me
 feed: /atom.xml
-author_info: <a href="http://andycoder.me">AndyCoder</a>
+author_info: <a href="http://andycoder.me">andycoder</a>
