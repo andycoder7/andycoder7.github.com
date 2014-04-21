@@ -1,3 +1,10 @@
+---
+layout: post
+title: 获取本机IP
+category: blog
+description: 通过ioctl获取本机IP
+---
+
 Get Local IP Information by SIOCFIGCONF
 ===
 
