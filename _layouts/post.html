@@ -21,6 +21,7 @@ layout: default
 
         <div id="disqus_container">
             <div style="margin-bottom:20px" class="right" type="hidden">
+				<!--
                 <script type="text/javascript" charset="utf-8">
                 (function(){
                   var _w = 86 , _h = 16;
@@ -42,14 +43,25 @@ layout: default
                   document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
                 })()
                 </script>
+				-->
             </div>
             <a href="#" class="comment" onclick="return false;">点击查看评论</a>
             <div id="disqus_thread"></div>
+			    <script type="text/javascript">
+                var disqus_shortname = 'example'; // 注意，这里的 example 要替换为你自己的短域名
+                (function() {
+                  var dsq = document.createElement('script'); 
+				  dsq.type = 'text/javascript'; 
+				  dsq.async = true;
+				  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	            })();
+		   	    </script>
+			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
     </div>
 
-    <div class="sidenav">
-    </div>
 	<!--
     <div class="sidenav">
         <iframe width="100%" height="75" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=75&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1855270953&verifier=375b89d6&dpc=1"></iframe>
