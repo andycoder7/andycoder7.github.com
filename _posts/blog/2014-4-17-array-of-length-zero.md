@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Arrays of Length Zero](http://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html)
+title: Arrays of Length Zero
 category: blog
 ---
 
