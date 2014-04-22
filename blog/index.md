@@ -2,18 +2,18 @@
 layout: home
 ---
 
-<div class="index-content opinion">
+<div class="index-content blog">
     <div class="section">
         <ul class="artical-cate">
             <li><a href="/"><span>Summary</span></a></li>
-            <li class="on" style="text-align:center"><a href="/opinion"><span>Blog</span></a></li>
+            <li class="on" style="text-align:center"><a href="/blog"><span>Blog</span></a></li>
             <li style="text-align:right"><a href="/project"><span>Project</span></a></li>
         </ul>
 
         <div class="cate-bar"><span id="cateBar"></span></div>
 
         <ul class="artical-list">
-        {% for post in site.categories.opinion %}
+        {% for post in site.categories.blog %}
             <li>
                 <h2>
                     <a href="{{ post.url }}">{{ post.title }}</a>

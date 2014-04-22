@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Arrays of Length Zero
-category: blog
+category: summary 
 ---
 
 ###缘起
