@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Get Local IP Information by SIOCFIGCONF
+title: Get Local IP Information by SIOCGIFCONF
 category: blog
 ---
 
