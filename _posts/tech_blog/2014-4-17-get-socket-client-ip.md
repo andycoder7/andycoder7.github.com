@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Get Client IP from Socket
-category: summary 
+category: tech_blog
 ---
 
 ###缘起

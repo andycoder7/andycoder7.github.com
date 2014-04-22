@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Get Local IP Information by SIOCGIFCONF
-category: summary 
+category: tech_blog 
 ---
 
 ###缘起

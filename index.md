@@ -2,10 +2,10 @@
 layout: home
 ---
 
-<div class="index-content summary">
+<div class="index-content tech_blog">
     <div class="section">
         <ul class="artical-cate">
-            <li class="on"><a href="/"><span>Summary</span></a></li>
+            <li class="on"><a href="/"><span>Tech-blog</span></a></li>
             <li style="text-align:center"><a href="/blog"><span>Blog</span></a></li>
             <li style="text-align:right"><a href="/project"><span>Project</span></a></li>
         </ul>
@@ -13,7 +13,7 @@ layout: home
         <div class="cate-bar"><span id="cateBar"></span></div>
 
         <ul class="artical-list">
-        {% for post in site.categories.summary %}
+        {% for post in site.categories.tech_blog %}
             <li>
                 <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
                 <div class="title-desc">{{ post.description }}</div>
