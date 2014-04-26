@@ -66,6 +66,7 @@ category: blog
 
 ###最后
 
+感谢Beiyuu,我搭建个人blog的时候主要是参照他的[这篇文章](http://beiyuu.com/github-pages/)的,当然代码也是他的代码改的,说出来真是有点不好意思呢...T_T
 **本文仅供参考!!!**
 
 *Andy(andy.at.working@gmail.com) 2014-04-23*
