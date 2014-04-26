@@ -4,13 +4,13 @@ title: 零长数组(Arrays of Length Zero)
 category: tech_blog
 ---
 
-###缘起
+##缘起
 
 ---
 
 今天在和朋友聊天的时候突然料到了零长数组（arrays of length zero）或是叫可变数组，或者叫变长数组（flexible array），或者叫柔性数组，anyway，反正就是那个长度为0的数组。举个例子来说就是 `char contents[0]` 。作为一个对C不是很了解的人来说，很好奇这玩意是干嘛用的？于是写了一些简单的测试程序，并用gdb啥的看了一下内存使用，还是似懂非懂，最后妥协了，在万能的oschina中提出了我问题，我当时的题目是[长度为0的数组的size为什么不一定是0？](http://www.oschina.net/question/1470892_151368)。（*Ps：我这里不好意思的说一下，由于当时我想复杂了，各种想不通，竟然忘了对齐的问题。。。真是弱爆了*）虽然问题没有问到点上，但是还是有好心人给出了我要的答案：[C语言结构体里的成员数组和指针](http://coolshell.cn/articles/11377.html)。如果对这个问题感兴趣的同学也可以参考一下陈皓大大的这篇文章，相信会有所收获的：）
 
-###原理
+##原理
 
 ---
 
@@ -22,7 +22,7 @@ category: tech_blog
 
 我们发现输出的结果表示size为0,但是address是存在的。这是什么情况呢？为什么明明在内存中没有的东西会还会读取的到他的地址呢？平时都说数组和指针差不多，就算是指针，那至少也要在内存中申请一块int来存放地址吧。这到底是怎么回事呢？其实，问题就出在我们之前说的，指针和数组差不多，但只是差不多，并不是一样！他们的区别是什么？这需要从他们的汇编实现来说了，指针的汇编实现是mov，而数组是lea。lea的全称是load effective address，也就是把地址传过去。关于数组和指针的区别，在陈皓大大的[博客](http://coolshell.cn/articles/11377.html)里也有讲的很清楚了。所以在调用num的时候会返回num[0]的地址，但是在内存中并没有一个具体存在的指针指向num[0]。说的不清楚不知道你是否听懂了。
 
-###用法
+##用法
 
 ---
 
@@ -47,7 +47,7 @@ category: tech_blog
 
 具体的test code可以在[github/tbox仓库里](https://github.com/andycoder7/tbox/blob/master/array_of_length_zero/test.c)中看到。
 
-###拓展
+##拓展
 
 ---
 
@@ -110,7 +110,7 @@ category: tech_blog
 
 这段代码会core么？在VC++和GCC下都会在14行printf的时候crash掉，这是为什么呢？
 
-###答案和零碎
+##答案和零碎
 
 ---
 

@@ -4,13 +4,13 @@ title: 通过SIOCGIFCONF获取本机IP信息
 category: tech_blog 
 ---
 
-###缘起
+##缘起
 
 ---
 
 今天在coding的时候需要获得自己本机IP,本来以为是一件很简单的事情,用getsockname就可以搞定了呀~.但仔细想想之后,好像又不是那么回事.当我PC同时连上有线和无线的时候,有两个IP,如果我希望我拿到就是WIFI的那个IP,貌似就不是那么容易的事情了.于是继续google+baidu+man-page.最后决定用ioctl这个神器=.=
 
-###收获
+##收获
 
 ---
 
@@ -67,7 +67,7 @@ struct ifconf:
 
 所以,同理,通过,`ifc_len/sizeof(struct ifreq)` 我们就可以知道到底有几个interface了(千万不要以为你的系统里只有一个接口,一般你都会有俩~,一个是eth0或者wlan0,另一个是lo,当然不同的系统名字不一样,例如centos里可能是lo和ppp0什么的)
 
-###拓展
+##拓展
 
 ---
 

@@ -4,13 +4,13 @@ title: 如何在ubuntu14.04(64位)编译运行32位程序
 category: blog
 ---
 
-###缘起
+##缘起
 
 ---
 
 我之前是ubuntu12.04(32bit),在一次手贱的apt-get remove之后呵呵了,大家都懂的..T_T,恰逢最近ubuntu14,04新鲜出炉,于是down了一个Ubuntu14.04(64bit)的iso安装玩玩(之前是因为没没注意,所以才装的ubuntu12,04-32bit,不然应该是装ubuntu12.04-64bit的),ubuntu的安装还是很简单的,我的电脑因为买的早也没有坑爹的EFI的问题,分分钟系统就OK了,整体体验还是不错的,但是当我装完软件,开始coding的时候悲催的发现make出错了,于是各种google+baidu+oschina+stackoverflow,经过6次重装系统,最终还是被我搞定了!!爽!!现写成博客给有相同问题的人参考一下.
 
-###我的解决方法
+##我的解决方法
 
 ---
 
@@ -43,7 +43,7 @@ category: blog
     make clean
     make
 
-###最后
+##最后
 
 ---
 
