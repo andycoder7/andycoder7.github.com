@@ -58,7 +58,7 @@ category: tech_blog
 ---
 
 - 额，好吧，其实答案我还没完全搞清楚，等我搞清楚了再来吧答案补上哈:)
-- 如果大家在运行[我的test](test.c)的程序，发现sock server输出是0.0.0.0。怎么回事？是程序有问题么？其实不是的，我们都知道，在socket服务器程序中，我们一般会bind本机IP，但是，由于一般本机IP不确定，或者会变，所以，一般bind本机IP都不直接写IP，而是使用宏`INADDR_ANY`，这个宏是什么呢？通过 `sudo grep -R "INADDR_ANY" /usr/include/` 我们可以找到这个宏其实就是0.0.0.0
+- 如果大家在运行[我的test](http://github.com/andycoder7/tbox/blob/master/get_socket_client_ip/test.c)的程序，发现sock server输出是0.0.0.0。怎么回事？是程序有问题么？其实不是的，我们都知道，在socket服务器程序中，我们一般会bind本机IP，但是，由于一般本机IP不确定，或者会变，所以，一般bind本机IP都不直接写IP，而是使用宏`INADDR_ANY`，这个宏是什么呢？通过 `sudo grep -R "INADDR_ANY" /usr/include/` 我们可以找到这个宏其实就是0.0.0.0
 - 千万不要以为自己都懂了，有可能你不知道的还有很多。
 
 *Andy(andy.at.working@gmail.com) 2014-04-17*
