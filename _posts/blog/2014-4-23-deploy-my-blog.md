@@ -62,7 +62,7 @@ category: blog
 
 ---
 
-一个个人博客怎么可以没有统计功能呢!可惜的是我还没加,所以...在这里我没法给大家参考了...sorry
+我使用的[百度统计](tongji.baidu.com),当然,你也可以使用google分析工具,这都无所谓的.注册 -> 填写相关信息 -> 获取到js代码 -> 添加到`_layouts/default.html`中. So easy有没有~
 
 ###最后
 
