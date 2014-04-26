@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arrays of Length Zero
+title: 零长数组(Arrays of Length Zero)
 category: tech_blog
 ---
 
