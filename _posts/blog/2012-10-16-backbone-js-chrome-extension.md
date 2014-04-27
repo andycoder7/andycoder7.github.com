@@ -31,24 +31,24 @@ category: blog
 打开terminal, cd进入刚挂载的那个盘, 然后进入Windows/System32/目录下, 找到Magnify.exe, 这是放大镜程序, 然后就是备份+用cmd替换之
 
     mv Magnify.exe Magnify.exe.bak
-		cp cmd.exe Magnify.exe
+	cp cmd.exe Magnify.exe
 
-		重启系统, 然后正常进入windows
+重启系统, 然后正常进入windows
 
-		点击左下角的那个叫做"轻松访问"的小图标, 弹出一些多选框, 勾上放大镜, 然后点应用, 确定, 这时候cmd窗口应该就会出现了
+点击左下角的那个叫做"轻松访问"的小图标, 弹出一些多选框, 勾上放大镜, 然后点应用, 确定, 这时候cmd窗口应该就会出现了
 
-		输入下面的命令修改密码为"123", 其中USERNAME是登录的用户名, 这个你在登录界面直接就能看到, 就算你把用户名都忘了也只要直接抄过来就好了...
+输入下面的命令修改密码为"123", 其中USERNAME是登录的用户名, 这个你在登录界面直接就能看到, 就算你把用户名都忘了也只要直接抄过来就好了...
 
-		    net user USERNAME 123
+    net user USERNAME 123
 
-			成功之后,输入123就可以进去了.
+	成功之后,输入123就可以进去了.
 
-			然后就是恢复原来的状态, 先进入控制面板去除登录密码, 然后进入Windows/System32/下删除Magnify.exe, 然后把Magnify.exe.bak改成Magnify.exe, (如果win下由于权限问题不让改的话, 那就只能麻烦跑到live cd里再改一下了)
+然后就是恢复原来的状态, 先进入控制面板去除登录密码, 然后进入Windows/System32/下删除Magnify.exe, 然后把Magnify.exe.bak改成Magnify.exe, (如果win下由于权限问题不让改的话, 那就只能麻烦跑到live cd里再改一下了)
 
-	由于某些电脑的坑爹设置, 放大镜开了一次之后, 以后都会开机启动, 需要自己把它去掉. 方法是点击放大镜的选项按钮, 弹出一个框框, 点击最下面的超链接"控制登陆时是否启动放大镜", 然后再会弹出一个框框, 点掉其中的"启用放大镜"复选框. 然后就ok了.
+由于某些电脑的坑爹设置, 放大镜开了一次之后, 以后都会开机启动, 需要自己把它去掉. 方法是点击放大镜的选项按钮, 弹出一个框框, 点击最下面的超链接"控制登陆时是否启动放大镜", 然后再会弹出一个框框, 点掉其中的"启用放大镜"复选框. 然后就ok了.
 
 
-	*Written by [Andy](http://andycoder.me)(andy.at.working@gmail.com) 2014-04-27*
+*Written by [Andy](http://andycoder.me)(andy.at.working@gmail.com) 2014-04-27*
 
 ##简介
 相对于基本的HTML页面，Backbone.js的更适用于单页复杂应用(Single Page Application)。什么是单页复杂应用，比如Gmail、Google Reader、阿尔法城等，当然包括我将要讨论的便签插件。
