@@ -9,6 +9,12 @@ category: blog
 ##缘起
 昨天晚上实验室一个学弟抱了一台电脑过来, 说是一个奇葩童鞋的, 把自己的开机密码忘了... 本着学长应该帮助学弟+我正好想玩一下, 于是把电脑拿了过来倒腾, 竟然真的成功了, 于是我对windows的安全感进一步下降了... 虽然, 它留着这么一个"后门"也是可以说的通的, 万一你真的忘了自己开机密码怎么办..
 
+##使用LiveCD功能破解
+作为经常捣腾Linux的同学一定知道在装linux系统的时候有个Live CD功能, 例如Ubuntu的话就是try ubuntu什么的. 而linux下又是可以读取到windows的文件的, 再加上在linux里面, 你有了root你就whosyoudaddy了! 很配合的是, 在live CD里sudo是空密码的. 这些加起来, 你就无敌啦, 哈哈 :-)
+
+###步骤
+插上启动盘(U盘/CD都可以), 重启系统, 从启动盘启动, 选择LIVE CD功能, 例如ubunut的话就选择try ubuntu
+
 ##简介
 相对于基本的HTML页面，Backbone.js的更适用于单页复杂应用(Single Page Application)。什么是单页复杂应用，比如Gmail、Google Reader、阿尔法城等，当然包括我将要讨论的便签插件。
 
