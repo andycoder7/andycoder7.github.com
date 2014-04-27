@@ -48,5 +48,5 @@ category: blog
 由于某些电脑的坑爹设置, 放大镜开了一次之后, 以后都会开机启动, 需要自己把它去掉. 方法是点击放大镜的选项按钮, 弹出一个框框, 点击最下面的超链接"控制登陆时是否启动放大镜", 然后再会弹出一个框框, 点掉其中的"启用放大镜"复选框. 然后就ok了.
 
 
-*Written by [Andy](http://andycoder.me)(andy.at.working@gmail.com) 2014-04-27*
+*Written by Andy(andy.at.working@gmail.com) 2014-04-27*
 
