@@ -4,13 +4,12 @@ title: 使用Backbone.js开发Chrome便签插件
 category: blog
 ---
 
-##Backbone.js简介
->Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.
+**asd**
 
+##Backbone.js简介
 相对于基本的HTML页面，Backbone.js的更适用于单页复杂应用(Single Page Application)。什么是单页复杂应用，比如Gmail、Google Reader、阿尔法城等，当然包括我将要讨论的便签插件。
 
 ##Notes页面准备
-
 为了不让过多的代码占据篇幅，简写如下，后面会给出源码地址：
 
 样式我这样不懂审美的土鳖来说，是最困难的，只能根据直觉慢慢调整，还好CSS3方便了很多，不然最终肯定都是无聊的线框。不用兼容浏览器，那些漂亮的样式可以敞开了写，不过从设计角度来说，过于绚丽会导致操作效率降低，令用户产生厌烦，恰到好处是最好的，这方面我只到有直觉的水平，并无有价值的理论经验可分享。最终效果自己体会就好，关注如何实现，可以到源码中一看究竟。
