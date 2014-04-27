@@ -6,36 +6,34 @@ category: blog
 
 **我的环境是ubunut14.04的livecd, 解决win7-32bit的开机密码, 64位的win的话请自己做相应调整**
 
-##缘起
+## 缘起
 
 ---
 
 昨天晚上实验室一个学弟抱了一台电脑过来, 说是一个奇葩童鞋的, 把自己的开机密码忘了... 本着学长应该帮助学弟+我正好想玩一下, 于是把电脑拿了过来倒腾, 竟然真的成功了, 于是我对windows的安全感进一步下降了... 虽然, 它留着这么一个"后门"也是可以说的通的, 万一你真的忘了自己开机密码怎么办..
 
-##使用Live CD功能破解
+## 使用Live CD功能破解
 
 ---
 
 作为经常捣腾Linux的同学一定知道在装linux系统的时候有个Live CD功能, 例如Ubuntu的话就是try ubuntu什么的. 而linux下又是可以读取到windows的文件的, 再加上在linux里面, 你有了root你就whosyoudaddy了! 很配合的是, 在live CD里sudo是空密码的. 这些加起来, 你就无敌啦, 哈哈 :-)
 
-###原理
+### 原理
 
 由于windows有一个bug的地方就是, 如果你用命令改密码的话是不需要原密码的. 所以我们只要设法在输密码之前进入cmd就行了. 至于怎么进cmd的话, 在登录界面上还有一些帮助按钮的, 点击左下角的那个东东, 就会出来什么屏幕朗读啊 放大镜啊 什么的. 其实它们就是调用了windows/system32/下的一些exe而已, 只要用cmd替换掉其中一个, 我们就可以在登录界面上调出cmd了!
 
-###步骤
+### 步骤
 
 1. 插上启动盘(U盘/CD都可以), 重启系统, 从启动盘启动, 选择LIVE CD功能, 例如ubunut的话就选择try ubuntu
 2. 进入try的系统之后, 打开文件夹, 把windows系统的那个盘挂载上, 有经验的同学可以使用fdisk+mount命令直接在terminal中挂载, 没有经验的话, 那就用鼠标点点好了
 3. 打开terminal, cd进入刚挂载的那个盘, 然后进入Windows/System32/目录下, 找到Magnify.exe, 这是放大镜程序, 然后就是备份+用cmd替换之
-
-    `mv Magnify.exe Magnify.exe.bak`
-    `cp cmd.exe Magnify.exe`
+> `mv Magnify.exe Magnify.exe.bak`
+> `cp cmd.exe Magnify.exe`
 
 4. 重启系统, 然后正常进入windows
 5. 点击左下角的那个叫做"轻松访问"的小图标, 弹出一些多选框, 勾上放大镜, 然后点应用, 确定, 这时候cmd窗口应该就会出现了
 6. 输入下面的命令修改密码为"123", 其中USERNAME是登录的用户名, 这个你在登录界面直接就能看到, 就算你把用户名都忘了也只要直接抄过来就好了...
-
-    `net user USERNAME 123`
+> `net user USERNAME 123`
 
 7. 成功之后,输入123就可以进去了.
 8. 然后就是恢复原来的状态, 先进入控制面板去除登录密码, 然后进入Windows/System32/下删除Magnify.exe, 然后把Magnify.exe.bak改成Magnify.exe, (如果win下由于权限问题不让改的话, 那就只能麻烦跑到live cd里再改一下了)
