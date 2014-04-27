@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 使用Backbone.js开发Chrome便签插件
+title: testpage
 category: blog
 ---
 
 **asd**
 
-##Backbone.js简介
+##简介
 相对于基本的HTML页面，Backbone.js的更适用于单页复杂应用(Single Page Application)。什么是单页复杂应用，比如Gmail、Google Reader、阿尔法城等，当然包括我将要讨论的便签插件。
 
 ##Notes页面准备
