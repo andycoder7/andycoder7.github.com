@@ -12,6 +12,9 @@ category: blog
 ##使用LiveCD功能破解
 作为经常捣腾Linux的同学一定知道在装linux系统的时候有个Live CD功能, 例如Ubuntu的话就是try ubuntu什么的. 而linux下又是可以读取到windows的文件的, 再加上在linux里面, 你有了root你就whosyoudaddy了! 很配合的是, 在live CD里sudo是空密码的. 这些加起来, 你就无敌啦, 哈哈 :-)
 
+###原理
+由于windows有一个bug的地方就是, 如果你用命令改密码的话是不需要原密码的. 所以我们只要设法在输密码之前进入cmd就行了. 至于怎么进cmd的话, 在登录界面上还有一些帮助按钮的, 点击左下角的那个东东, 就会出来什么屏幕朗读啊 放大镜啊 什么的. 其实它们就是调用了windows/system32/下的一些exe而已, 只要用cmd替换掉其中一个, 我们就可以在登录界面上调出cmd了!
+
 ###步骤
 插上启动盘(U盘/CD都可以), 重启系统, 从启动盘启动, 选择LIVE CD功能, 例如ubunut的话就选择try ubuntu
 
