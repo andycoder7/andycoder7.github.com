@@ -70,4 +70,4 @@ category: blog
 
 **本文仅供参考!!!**
 
-*Andy(andy.at.working@gmail.com) 2014-04-23*
+*[Andy](http://andycoder.me)(andy.at.working@gmail.com) 2014-04-23*
