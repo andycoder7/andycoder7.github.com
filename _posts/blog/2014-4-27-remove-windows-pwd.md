@@ -28,14 +28,14 @@ category: blog
 2. 进入try的系统之后, 打开文件夹, 把windows系统的那个盘挂载上, 有经验的同学可以使用fdisk+mount命令直接在terminal中挂载, 没有经验的话, 那就用鼠标点点好了
 3. 打开terminal, cd进入刚挂载的那个盘, 然后进入Windows/System32/目录下, 找到Magnify.exe, 这是放大镜程序, 然后就是备份+用cmd替换之
 
-    mv Magnify.exe Magnify.exe.bak
-	cp cmd.exe Magnify.exe
+    `mv Magnify.exe Magnify.exe.bak`
+    `cp cmd.exe Magnify.exe`
 
 4. 重启系统, 然后正常进入windows
 5. 点击左下角的那个叫做"轻松访问"的小图标, 弹出一些多选框, 勾上放大镜, 然后点应用, 确定, 这时候cmd窗口应该就会出现了
 6. 输入下面的命令修改密码为"123", 其中USERNAME是登录的用户名, 这个你在登录界面直接就能看到, 就算你把用户名都忘了也只要直接抄过来就好了...
 
-    net user USERNAME 123
+    `net user USERNAME 123`
 
 7. 成功之后,输入123就可以进去了.
 8. 然后就是恢复原来的状态, 先进入控制面板去除登录密码, 然后进入Windows/System32/下删除Magnify.exe, 然后把Magnify.exe.bak改成Magnify.exe, (如果win下由于权限问题不让改的话, 那就只能麻烦跑到live cd里再改一下了)
