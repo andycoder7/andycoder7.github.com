@@ -29,7 +29,7 @@ category: blog
     echo "deb http://archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse" >ia32-libs-raring.list
     apt-get update
     apt-get install ia32-libs
-    rm /ia32-libs-raring.list
+    rm ia32-libs-raring.list
     apt-get update
     exit
 
