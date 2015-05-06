@@ -1,0 +1,941 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.2"/>
+
+
+    <meta name="description" content="写写代码搞搞基, 骑骑车子下下棋. <br>玩玩 Mac COC , 学着蜀黍爱萝莉." />
+
+
+
+  <meta name="keywords" content="Blog,GitHub,HEXO," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
+
+
+
+
+  <title> 用 HEXO 搭建个人博客 // Andy's World </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Andy's World</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              用 HEXO 搭建个人博客
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-06
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/琐碎/">琐碎</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h2 id="0x00_背景">0x00 背景</h2><p>老早之前选择 octopress 在 github 上搭建了自己的博客, 虽然说是 for hackers 的博客系统, 但是略觉得有点烦, 正好看到 HEXO. 各方面都满足了我的需求, 而且还很简单, 于是我就很没有骨气的变节了…</p>
+<h3 id="0x01_HEXO">0x01 HEXO</h3><p>关于 HEXO 的介绍和资料可以戳<a href="http://hexo.io/docs/" target="_blank" rel="external">这里</a>, 总的来说优点有:</p>
+<ul>
+<li>操作简单, 使用方便</li>
+<li>主题数量和质量都 ok</li>
+<li>文档资料详细</li>
+<li>gitpage + markdown</li>
+</ul>
+<p>能提供的功能大致有:</p>
+<a id="more"></a>
+<ul>
+<li>首页</li>
+<li>根据时间归档</li>
+<li>标签(云)</li>
+<li>分类</li>
+<li>订阅</li>
+<li>各种链接</li>
+<li>各种统计</li>
+<li>多说/ disqus 评论</li>
+<li>swiftype 站内搜索等</li>
+</ul>
+<p>基本上需要的功能都有了.</p>
+<h3 id="0x02_gitpage">0x02 gitpage</h3><p>gitpage 是 github 提供的 pages 功能, 可以用于展示项目和个人博客, 使用 Jekyll 静态模板系统, 所以不需要数据库, 大致上做的事情就是把你项目中的代码通过 jekyll 解析成一个个静态的 html 页面. </p>
+<p>要建立自己的 gitpage 也很简单, 在你的 github 上新建一个项目, 项目名为: YOUR_GITHUB_USERNAME.github.io, 然后就没有然后了…</p>
+<p>当你访问 <a href="http://YOUR_GITHUB_UERNAME.github.io" target="_blank" rel="external">http://YOUR_GITHUB_UERNAME.github.io</a> 时, 网页请求会发送到 github, 然后 github 会找到你的那个项目, 然后把里面的代码根据 jekyll 解析, 然后返回对应的 html 文件.</p>
+<p>详情戳<a href="https://pages.github.com/" target="_blank" rel="external">这里</a></p>
+<h2 id="0x10_搭建">0x10 搭建</h2><p>个人习惯不同, 我习惯在虚拟机里搭建开发环境, 这样就方便我随便捣腾了, 你也可以直接在本机搭. 需要安装依赖软件只有 <a href="http://git-scm.com/" target="_blank" rel="external">git</a> 和 <a href="https://nodejs.org/" target="_blank" rel="external">nodejs</a>. 然后只需要<code>$ npm install -g hexo-cli</code>就好了, 其中 <code>-g</code> 参数表示 global, 不然 hexo-cli 只会装在当前目录下的 node_modules文件夹中.</p>
+<h3 id="0x11_初始化">0x11 初始化</h3><p>安装完成后, 我们就可以开始享受了 hexo 了. 具体步骤的话, 当然是要先把自己在 github 上的那个项目先 clone 下来, 然后 cd 进入该文件夹, 然后 <code>hexo init</code> 初始化一下, 然后再<code>npm install</code>就 ok 啦.</p>
+<p>不过这里似乎有个坑, 我不知道是不是只有我一个人遇到了, 当我在执行 hexo init 的时候, 我看到了:</p>
+<blockquote>
+<p>/usr/bin/env: node: No such file or directory</p>
+</blockquote>
+<p>原因似乎是由于 nodejs 在安装完成后, 在/usr/bin/下的可执行文件是 nodejs, 而不是 node 了, 所以 hexo 只能说, oops 找不到 node. 所以我们只需要建一个叫 node 的软连接指向 nodejs 即可:</p>
+<p><code>sudo ln -s /usr/bin/nodejs /usr/bin/node</code></p>
+<h3 id="0x12_目录结构">0x12 目录结构</h3><p>然后, 我们得到了如下的目录结构:</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── scripts</span><br><span class="line">├── source</span><br><span class="line"><span class="string">|   ├── _drafts</span></span><br><span class="line"><span class="string">|   └── _posts</span></span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<h4 id="_config-yml">_config.yml</h4><p>存放各种配置信息</p>
+<h4 id="package-json">package.json</h4><p>各种组件的版本信息</p>
+<h4 id="scaffolds">scaffolds</h4><p>我们用 hexo new 命令生成一篇博客的时候, 文件中的初始内容来自于该文件夹</p>
+<h4 id="scripts">scripts</h4><p>用于扩展 hexo, 所有放在这里的javascript文件会被自动执行</p>
+<h4 id="source">source</h4><p>_drafts 存放草稿, _posts 中则放正式的博客文章</p>
+<h4 id="themes">themes</h4><p>存放 hexo 的主题</p>
+<h3 id="0x13_配置">0x13 配置</h3><p>在 _config.yml 文件中要改的不多, 基本上: title/subtitle/description/author/language/timezone/url/theme/deploy</p>
+<p>其中 language 如果是中文的话那就设成: zh-CN, 或者看 theme/[你的主题]/language/下有那些语言, 选一个填上好了.</p>
+<p>timezone 的话戳<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">这里</a>, 如果是中国的话, 那就填 Asia/Shanghai 好了.</p>
+<p>至于 deploy, 因为我们用 github, 所以这里这么填好了:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: YOUR_GITHUB_REPOSITORY</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+<h3 id="0x14_测试">0x14 测试</h3><p>hexo 帮我们把很多命令封装了起来, 所以基本上只需要: </p>
+<h4 id="hexo_new_[layout]">hexo new [layout] <title></title></h4><p>创建新文章,  一般来说如果是正常写文章的话, layout 不需要填写, 直接 <code>hexo new &lt;title&gt;</code> 即可, 将会生成 source/_posts/<title>.md, 然后用 markdown 格式书写博客就好了. 可以把命令缩写为 <code>hexo n &lt;title&gt;</code></title></p>
+<h4 id="hexo_generate">hexo generate</h4><p>生成 jekyll 可以解析的静态页面, 生成的页面全部放在 public 文件夹下.</p>
+<p>可以加两个参数, 一个是<code>-d</code>, 表示在生成之后 deploy 部署到 github 上, 另一个是 <code>-w</code> 表示watch, 查看有哪些文件修改了. 命令可以缩写为 <code>hexo g</code></p>
+<h4 id="hexo_server">hexo server</h4><p>本地启动 web 服务, 用来预览博客生成部署之后的效果. 输入该命令后, 在浏览器中输入 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 就可以访问了. 可以缩写成<code>hexo s</code></p>
+<h4 id="hexo_deploy">hexo deploy</h4><p>部署, 把 public 文件夹下的文件推送到项目仓库的 master 分支上(具体看配置文件中的设置). 缩写是 <code>hexo d</code></p>
+<h4 id="其他命令">其他命令</h4><p>主要用到的就上述那些命令, 其他命令戳<a href="http://hexo.io/docs/commands.html" target="_blank" rel="external">这里</a></p>
+<h3 id="0x15_坑">0x15 坑</h3><p>在 deploy 的时候, 可能会碰到一个坑:</p>
+<blockquote>
+<p>ERROR Deployer not found: git</p>
+</blockquote>
+<p>原因是在 hexo3.0之后, 不仅 github 的 deploy 的 type 从 github 改为了 git, 其中 deploy 的功能也被单独做成一个模块, 需要另外安装, 所以我们需要执行以下</p>
+<p><code>npm install hexo-deployer-git  --save</code></p>
+<p>其中<code>--save</code> 参数是用于把模块的版本号添加到 package.json 文件中的依赖里( dependences ), 否则在安装完之后需要手动添加.</p>
+<h3 id="0x16_我各个软件和模块的版本">0x16 我各个软件和模块的版本</h3><ul>
+<li>nodejs 0.10.25</li>
+<li>git 1.9.1</li>
+<li>hexo 3.0.1</li>
+<li>os ubuntu14.04 x64 linux 3.13.0-24-generic</li>
+<li>http_parser 1.0</li>
+<li>v8: 3.14.5.9</li>
+<li>ares: 1.10.0</li>
+<li>uv: 0.10.23</li>
+<li>zlib: 1.2.8</li>
+<li>modules: 11</li>
+<li>openssl: 1.0.1f</li>
+</ul>
+<h2 id="0x20_主题">0x20 主题</h2><p>hexo的主题有很多, 戳<a href="http://hexo.io/themes/" target="_blank" rel="external">这里</a>, 还有<a href="http://www.zhihu.com/question/24422335/answer/46357100" target="_blank" rel="external">这里</a>, 这里列出了很多 nice 的主题, 我自己也试了很多, 目前来说感觉比较好看的有四个. 如果你看中了那个主题, 只需要在 theme 目录下 <code>git clone 对应主题的仓库</code>, 然后把文件夹随便改个名字, 然后在外面的 <code>_config.yml</code> 文件中的 <code>theme:</code> 后面加上那个文件夹的名字即可.</p>
+<h3 id="0x21_phase">0x21 phase</h3><p>github地址: <a href="https://github.com/hexojs/hexo-theme-phase" target="_blank" rel="external">https://github.com/hexojs/hexo-theme-phase</a> 要预览的话戳<a href="http://hexo.io/hexo-theme-phase/" target="_blank" rel="external">这里</a>. 不过由于会去问 Google 要 jquery 文件, 所以不会科学上网的小伙伴…呵呵哒</p>
+<p><img src="/images/blog-with-hexo/phase.png" alt=""></p>
+<p>这里放的是静图, 但实际上背景上的气泡和线条都会移动的, 所以效果很 nice, 不过成也动画, 败也动画, 当打开这个页面的时候, 我的 CPU 直接100+%了…</p>
+<h3 id="0x22_moretwo">0x22 moretwo</h3><p>github 地址: <a href="https://github.com/moretwo/hexo-theme" target="_blank" rel="external">https://github.com/moretwo/hexo-theme</a> 要预览的话戳<a href="http://moretwo.github.io/about/2014-09-11-mabao/" target="_blank" rel="external">这里</a>. 主题应该是 casper, 但是我是从 moretwo 那里看到的, 所以我在这里就称之为 moretwo 了.</p>
+<p><img src="/images/blog-with-hexo/moretwo0.gif" alt=""><br><img src="/images/blog-with-hexo/moretwo1.png" alt=""><br><img src="/images/blog-with-hexo/moretwo2.png" alt=""></p>
+<h3 id="0x23_huno">0x23 huno</h3><p>github地址: <a href="https://github.com/someus/huno" target="_blank" rel="external">https://github.com/someus/huno</a> 这是源自 ghost 上的 nuo 主题, 搬到了 hexo, 所以就起名为 huno 了, </p>
+<p><img src="/images/blog-with-hexo/huno1.png" alt=""><br><img src="/images/blog-with-hexo/huno2.png" alt=""></p>
+<h3 id="0x24_mist(NexT)">0x24 mist(NexT)</h3><p>github地址: <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> 预览的话我的博客就是. 不过你可能会觉得装完后还是有点区别. 虽然我们用的都是 NexT, 但是我在主题中的 _config.yml 文件中加了一行:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># Mist</span></span><br><span class="line"><span class="preprocessor">#scheme: Mist</span></span><br></pre></td></tr></table></figure>
+<p>这在 README 文件中有说明哦.</p>
+<h2 id="0x30_其他">0x30 其他</h2><p>到这里基本上就都说的差不多了, 不过零碎的情况文中没有提到</p>
+<h3 id="0x31_About_页面">0x31 About 页面</h3><p>在换各种主题的时候, 有时候会碰到主题里面明明有 Archive 或者 Tags 或者 Categories 或者 About 等页面, 但是你会很囧的发现没法打开, 提示说:</p>
+<blockquote>
+<p>Cannot GET /about/</p>
+</blockquote>
+<p>原因是你没有生成 about 页面, 只要<code>hexo new page about</code> 就可以了. 这个命令会在 source/ 目录下新建一个 about 文件夹, 然后建立一个 index.md 文件, 然后当<code>hexo g</code>生成的时候, 就会在 public/about/ 目录下生成一个 index.html 文件了, 然后就可以访问 about 页面了. 至于 about 页面的内容, 用 markdown 语法写在 index.md 中即可.</p>
+<h3 id="0x32_引用本地jquery">0x32 引用本地jquery</h3><p>遇到一些主题使用了 google 的 jquery 的话, 没有关系, 用 <code>grep -R &quot;google&quot; .</code> 找到所有用了Google jquery 的地方, 然后把链接换成另外的 CDN 的地址好了, 或者把 jquery 下载到本地, 然后放到 theme/[ 你的主题]/ source/js/ 之类的地方, 然后把链接地址改成 <code>&lt;%- config.root %&gt;js/jquery.min.js</code>即可.</p>
+<h3 id="0x33_源码保存">0x33 源码保存</h3><p>通过<code>hexo d</code>, 我们会把 public 文件夹下的内容上传到 github 仓库的 master 分支, 那么问题来了, public 下的文件是保存了, 那其他文件怎么办嘞, 我们写博客, 换主题都是在其他文件下弄的呀. 所以我的个人习惯是新建一个 source 分支, 然后把代码都存在 source 分支上, 每次修改完, 或者写完新的博客, 就先 commit push 到远程的 source 分支, 然后在 hexo g -d 把页面生成推送到master 分支</p>
+<h2 id="0x40_结语">0x40 结语</h2><p>写的好累… Hope this arcitle will help you. That’s all, thanks you.</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Blog/"> #Blog </a>
+          
+            <a href="/tags/GitHub/"> #GitHub </a>
+          
+            <a href="/tags/HEXO/"> #HEXO </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="AndyYao" />
+          <p class="site-author-name">AndyYao</p>
+        </div>
+        <p class="site-description motion-element">写写代码搞搞基, 骑骑车子下下棋. <br>玩玩 Mac COC , 学着蜀黍爱萝莉.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/andycoder7" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://stackoverflow.com/users/3358665/andycoder" target="_blank">stackoverflow</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01_HEXO"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 HEXO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02_gitpage"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 gitpage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_搭建"><span class="nav-number">2.</span> <span class="nav-text">0x10 搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_初始化"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_目录结构"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#_config-yml"><span class="nav-number">2.2.1.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json"><span class="nav-number">2.2.2.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaffolds"><span class="nav-number">2.2.3.</span> <span class="nav-text">scaffolds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scripts"><span class="nav-number">2.2.4.</span> <span class="nav-text">scripts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">2.2.5.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#themes"><span class="nav-number">2.2.6.</span> <span class="nav-text">themes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_配置"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x14_测试"><span class="nav-number">2.4.</span> <span class="nav-text">0x14 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_new_[layout]"><span class="nav-number">2.4.1.</span> <span class="nav-text">hexo new [layout] </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_generate"><span class="nav-number">2.4.2.</span> <span class="nav-text">hexo generate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_server"><span class="nav-number">2.4.3.</span> <span class="nav-text">hexo server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_deploy"><span class="nav-number">2.4.4.</span> <span class="nav-text">hexo deploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他命令"><span class="nav-number">2.4.5.</span> <span class="nav-text">其他命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x15_坑"><span class="nav-number">2.5.</span> <span class="nav-text">0x15 坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x16_我各个软件和模块的版本"><span class="nav-number">2.6.</span> <span class="nav-text">0x16 我各个软件和模块的版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_主题"><span class="nav-number">3.</span> <span class="nav-text">0x20 主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x21_phase"><span class="nav-number">3.1.</span> <span class="nav-text">0x21 phase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x22_moretwo"><span class="nav-number">3.2.</span> <span class="nav-text">0x22 moretwo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x23_huno"><span class="nav-number">3.3.</span> <span class="nav-text">0x23 huno</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x24_mist(NexT)"><span class="nav-number">3.4.</span> <span class="nav-text">0x24 mist(NexT)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x30_其他"><span class="nav-number">4.</span> <span class="nav-text">0x30 其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x31_About_页面"><span class="nav-number">4.1.</span> <span class="nav-text">0x31 About 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x32_引用本地jquery"><span class="nav-number">4.2.</span> <span class="nav-text">0x32 引用本地jquery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x33_源码保存"><span class="nav-number">4.3.</span> <span class="nav-text">0x33 源码保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x40_结语"><span class="nav-number">5.</span> <span class="nav-text">0x40 结语</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">AndyYao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.content img').each(function () {
+        var $image = $(this);
+        var $imageWrapLink = $image.parent('a');
+
+        if ($imageWrapLink.size() < 1) {
+          $imageWrapLink = $image.wrap('<a href="' + this.getAttribute('src') + '"></a>').parent('a');
+        }
+        $imageWrapLink.addClass('fancybox');
+      });
+    });
+    $('.fancybox').fancybox({
+      helpers: {
+        overlay: {
+          locked: false
+        }
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  
+  
+
+  
+
+
+
+
+  
+</body>
+</html>
