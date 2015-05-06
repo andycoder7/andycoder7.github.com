@@ -5,7 +5,7 @@
 # Site
 title: Andy's World
 subtitle: just coding, just doing
-description: 写写代码搞搞基, 骑骑车子下下棋. 玩玩Mac COC, 学着蜀黍爱萝莉.
+description: 写写代码搞搞基, 骑骑车子下下棋. <br>玩玩 Mac COC , 学着蜀黍爱萝莉.
 #subtitle: 写写代码搞搞基, 骑骑车子下下棋. 玩玩Mac COC, 学着蜀黍爱萝莉.
 author: AndyYao
 language: zh-CN
@@ -64,7 +64,9 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: mist
+#theme: phase 
 #theme: moretwo
+#theme: huno
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
