@@ -8,7 +8,7 @@ subtitle: just coding, just doing
 description: 写写代码搞搞基, 骑骑车子下下棋. 玩玩Mac COC, 学着蜀黍爱萝莉.
 #subtitle: 写写代码搞搞基, 骑骑车子下下棋. 玩玩Mac COC, 学着蜀黍爱萝莉.
 author: AndyYao
-language: CN-ZH
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -63,7 +63,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: huno
+theme: mist
+#theme: moretwo
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
