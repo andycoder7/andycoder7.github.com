@@ -20,7 +20,7 @@
 
 
 
-  <meta name="keywords" content="Blog,GitHub,HEXO," />
+  <meta name="keywords" content="Git,Shell," />
 
 
 
@@ -31,7 +31,7 @@
 
 
 
-  <title> 用 HEXO 搭建个人博客 // Andy's World </title>
+  <title> Shell 提示符中添加 git branch 信息 // Andy's World </title>
 </head>
 
 <body>
@@ -118,7 +118,7 @@
           
           
             
-              用 HEXO 搭建个人博客
+              Shell 提示符中添加 git branch 信息
             
           
         </h1>
@@ -126,7 +126,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-05-06
+          发表于 2015-05-11
         </span>
 
         
@@ -154,100 +154,60 @@
       
 
       
-        <h2 id="0x00_背景">0x00 背景</h2><p>老早之前选择 octopress 在 github 上搭建了自己的博客, 虽然说是 for hackers 的博客系统, 但是略觉得有点烦, 正好看到 HEXO. 各方面都满足了我的需求, 而且还很简单, 于是我就很没有骨气的变节了…</p>
-<h3 id="0x01_HEXO">0x01 HEXO</h3><p>关于 HEXO 的介绍和资料可以戳<a href="http://hexo.io/docs/" target="_blank" rel="external">这里</a>, 总的来说优点有:</p>
+        <h2 id="0x00_背景">0x00 背景</h2><p>github 墙虽然没有刷起来, 但是 git 在项目中用到的还是挺多的, 经常需要在各个分支之间切换, 万一搞错分支真是会呵呵的. 这时候就想, 如果在 shell 的提示符上能实时显示出所在分支, 那该有多好. 事实证明, 有这种想法的 coder 绝对不止我一个…</p>
+<h3 id="0x01_实现方法">0x01 实现方法</h3><p>就我现在的了解, 要实现这个需求主要有两种方法:</p>
 <ul>
-<li>操作简单, 使用方便</li>
-<li>主题数量和质量都 ok</li>
-<li>文档资料详细</li>
-<li>gitpage + markdown</li>
+<li>bash + 修改 .bashrc + 修改 PS1</li>
+<li>zsh + oh-my-zsh</li>
 </ul>
-<p>能提供的功能大致有:</p>
 <a id="more"></a>
-<ul>
-<li>首页</li>
-<li>根据时间归档</li>
-<li>标签(云)</li>
-<li>分类</li>
-<li>订阅</li>
-<li>各种链接</li>
-<li>各种统计</li>
-<li>多说/ disqus 评论</li>
-<li>swiftype 站内搜索等</li>
-</ul>
-<p>基本上需要的功能都有了.</p>
-<h3 id="0x02_gitpage">0x02 gitpage</h3><p>gitpage 是 github 提供的 pages 功能, 可以用于展示项目和个人博客, 使用 Jekyll 静态模板系统, 所以不需要数据库, 大致上做的事情就是把你项目中的代码通过 jekyll 解析成一个个静态的 html 页面. </p>
-<p>要建立自己的 gitpage 也很简单, 在你的 github 上新建一个项目, 项目名为: YOUR_GITHUB_USERNAME.github.io, 然后就没有然后了…</p>
-<p>当你访问 <a href="http://YOUR_GITHUB_UERNAME.github.io" target="_blank" rel="external">http://YOUR_GITHUB_UERNAME.github.io</a> 时, 网页请求会发送到 github, 然后 github 会找到你的那个项目, 然后把里面的代码根据 jekyll 解析, 然后返回对应的 html 文件.</p>
-<p>详情戳<a href="https://pages.github.com/" target="_blank" rel="external">这里</a></p>
-<h2 id="0x10_搭建">0x10 搭建</h2><p>个人习惯不同, 我习惯在虚拟机里搭建开发环境, 这样就方便我随便捣腾了, 你也可以直接在本机搭. 需要安装依赖软件只有 <a href="http://git-scm.com/" target="_blank" rel="external">git</a> 和 <a href="https://nodejs.org/" target="_blank" rel="external">nodejs</a>. 然后只需要<code>$ npm install -g hexo-cli</code>就好了, 其中 <code>-g</code> 参数表示 global, 不然 hexo-cli 只会装在当前目录下的 node_modules文件夹中.</p>
-<h3 id="0x11_初始化">0x11 初始化</h3><p>安装完成后, 我们就可以开始享受了 hexo 了. 具体步骤的话, 当然是要先把自己在 github 上的那个项目先 clone 下来, 然后 cd 进入该文件夹, 然后 <code>hexo init</code> 初始化一下, 然后再<code>npm install</code>就 ok 啦.</p>
-<p>不过这里似乎有个坑, 我不知道是不是只有我一个人遇到了, 当我在执行 hexo init 的时候, 我看到了:</p>
+<h2 id="0x10_Bash">0x10 Bash</h2><p>很多 linux 系统默认的 Shell 就是 Bash, 可以通过<code>cat /etc/shells</code>来查看本机装了哪些 shell, 然后通过<code>echo $SHELL</code>来查看自己目前使用的那个 Shell.</p>
+<p>一般来说, 要在 Bash 的提示符中自定义信息的话, 只要修改 PS1 这个变量即可. 在 man page 里, PS1 的定义是:</p>
 <blockquote>
-<p>/usr/bin/env: node: No such file or directory</p>
+<p>PS1    The value of this parameter is expanded (see PROMPTING below) and used as the primary prompt string.  The default value is “\s-\v\$” .</p>
 </blockquote>
-<p>原因似乎是由于 nodejs 在安装完成后, 在/usr/bin/下的可执行文件是 nodejs, 而不是 node 了, 所以 hexo 只能说, oops 找不到 node. 所以我们只需要建一个叫 node 的软连接指向 nodejs 即可:</p>
-<p><code>sudo ln -s /usr/bin/nodejs /usr/bin/node</code></p>
-<h3 id="0x12_目录结构">0x12 目录结构</h3><p>然后, 我们得到了如下的目录结构:</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── scripts</span><br><span class="line">├── source</span><br><span class="line"><span class="string">|   ├── _drafts</span></span><br><span class="line"><span class="string">|   └── _posts</span></span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
-<h4 id="_config-yml">_config.yml</h4><p>存放各种配置信息</p>
-<h4 id="package-json">package.json</h4><p>各种组件的版本信息</p>
-<h4 id="scaffolds">scaffolds</h4><p>我们用 hexo new 命令生成一篇博客的时候, 文件中的初始内容来自于该文件夹</p>
-<h4 id="scripts">scripts</h4><p>用于扩展 hexo, 所有放在这里的javascript文件会被自动执行</p>
-<h4 id="source">source</h4><p>_drafts 存放草稿, _posts 中则放正式的博客文章</p>
-<h4 id="themes">themes</h4><p>存放 hexo 的主题</p>
-<h3 id="0x13_配置">0x13 配置</h3><p>在 _config.yml 文件中要改的不多, 基本上: title/subtitle/description/author/language/timezone/url/theme/deploy</p>
-<p>其中 language 如果是中文的话那就设成: zh-CN, 或者看 theme/[你的主题]/language/下有那些语言, 选一个填上好了.</p>
-<p>timezone 的话戳<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">这里</a>, 如果是中国的话, 那就填 Asia/Shanghai 好了.</p>
-<p>至于 deploy, 因为我们用 github, 所以这里这么填好了:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: YOUR_GITHUB_REPOSITORY</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
-<h3 id="0x14_测试">0x14 测试</h3><p>hexo 帮我们把很多命令封装了起来, 所以基本上只需要: </p>
-<h4 id="hexo_new_[layout]">hexo new [layout] <title></title></h4><p>创建新文章,  一般来说如果是正常写文章的话, layout 不需要填写, 直接 <code>hexo new &lt;title&gt;</code> 即可, 将会生成 source/_posts/<title>.md, 然后用 markdown 格式书写博客就好了. 可以把命令缩写为 <code>hexo n &lt;title&gt;</code></title></p>
-<h4 id="hexo_generate">hexo generate</h4><p>生成 jekyll 可以解析的静态页面, 生成的页面全部放在 public 文件夹下.</p>
-<p>可以加两个参数, 一个是<code>-d</code>, 表示在生成之后 deploy 部署到 github 上, 另一个是 <code>-w</code> 表示watch, 查看有哪些文件修改了. 命令可以缩写为 <code>hexo g</code></p>
-<h4 id="hexo_server">hexo server</h4><p>本地启动 web 服务, 用来预览博客生成部署之后的效果. 输入该命令后, 在浏览器中输入 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 就可以访问了. 可以缩写成<code>hexo s</code></p>
-<h4 id="hexo_deploy">hexo deploy</h4><p>部署, 把 public 文件夹下的文件推送到项目仓库的 master 分支上(具体看配置文件中的设置). 缩写是 <code>hexo d</code></p>
-<h4 id="其他命令">其他命令</h4><p>主要用到的就上述那些命令, 其他命令戳<a href="http://hexo.io/docs/commands.html" target="_blank" rel="external">这里</a></p>
-<h3 id="0x15_坑">0x15 坑</h3><p>在 deploy 的时候, 可能会碰到一个坑:</p>
+<p>大意是: PS1 这个参数的值是可扩展的( 具体的扩展说明参见下文对 PROMPTING 的说明), 并且是提示符的主要字符串. 其默认值是: <code>&quot;\s-\v\$&quot;</code>. </p>
+<p>说到这里, 估计大部分童鞋都和我一样…甚么鬼…甚么是叫可扩展的? 怎么扩展? PROMTING 是甚么? 提示符的主要字符串还好理解, 就是提示符那串东西的主要组成部分么, 但是那个默认值是甚么意思?</p>
+<h3 id="0x11_expanded">0x11 expanded</h3><p>所谓可扩展的, 我个人理解是指可以被再次解析的, 也就是说, 这个字符串里有一些特定字符代表着别的意思, 就好像 C 语言里面的 printf 函数一样, 虽然我们在参数里面填的是” num is %d\n “, 但是其中<code>%d</code>和<code>\n</code> 都会被再次解析, 转换成数字和换行符. 在这里也是一样的, <code>\s</code> 表示 shell 的 name, <code>\v</code> 表示 bash 的版本, <code>\$</code> 就是$, 所以按照默认值的话, 你看到的提示符应该是这样的:</p>
 <blockquote>
-<p>ERROR Deployer not found: git</p>
+<p>bash-4.3$</p>
 </blockquote>
-<p>原因是在 hexo3.0之后, 不仅 github 的 deploy 的 type 从 github 改为了 git, 其中 deploy 的功能也被单独做成一个模块, 需要另外安装, 所以我们需要执行以下</p>
-<p><code>npm install hexo-deployer-git  --save</code></p>
-<p>其中<code>--save</code> 参数是用于把模块的版本号添加到 package.json 文件中的依赖里( dependences ), 否则在安装完之后需要手动添加.</p>
-<h3 id="0x16_我各个软件和模块的版本">0x16 我各个软件和模块的版本</h3><ul>
-<li>nodejs 0.10.25</li>
-<li>git 1.9.1</li>
-<li>hexo 3.0.1</li>
-<li>os ubuntu14.04 x64 linux 3.13.0-24-generic</li>
-<li>http_parser 1.0</li>
-<li>v8: 3.14.5.9</li>
-<li>ares: 1.10.0</li>
-<li>uv: 0.10.23</li>
-<li>zlib: 1.2.8</li>
-<li>modules: 11</li>
-<li>openssl: 1.0.1f</li>
-</ul>
-<h2 id="0x20_主题">0x20 主题</h2><p>hexo的主题有很多, 戳<a href="http://hexo.io/themes/" target="_blank" rel="external">这里</a>, 还有<a href="http://www.zhihu.com/question/24422335/answer/46357100" target="_blank" rel="external">这里</a>, 这里列出了很多 nice 的主题, 我自己也试了很多, 目前来说感觉比较好看的有四个. 如果你看中了那个主题, 只需要在 theme 目录下 <code>git clone 对应主题的仓库</code>, 然后把文件夹随便改个名字, 然后在外面的 <code>_config.yml</code> 文件中的 <code>theme:</code> 后面加上那个文件夹的名字即可.</p>
-<h3 id="0x21_phase">0x21 phase</h3><p>github地址: <a href="https://github.com/hexojs/hexo-theme-phase" target="_blank" rel="external">https://github.com/hexojs/hexo-theme-phase</a> 要预览的话戳<a href="http://hexo.io/hexo-theme-phase/" target="_blank" rel="external">这里</a>. 不过由于会去问 Google 要 jquery 文件, 所以不会科学上网的小伙伴…呵呵哒</p>
-<p><img src="/images/blog-with-hexo/phase.png" alt=""></p>
-<p>这里放的是静图, 但实际上背景上的气泡和线条都会移动的, 所以效果很 nice, 不过成也动画, 败也动画, 当打开这个页面的时候, 我的 CPU 直接100+%了…</p>
-<h3 id="0x22_moretwo">0x22 moretwo</h3><p>github 地址: <a href="https://github.com/moretwo/hexo-theme" target="_blank" rel="external">https://github.com/moretwo/hexo-theme</a> 要预览的话戳<a href="http://moretwo.github.io/about/2014-09-11-mabao/" target="_blank" rel="external">这里</a>. 主题应该是 casper, 但是我是从 moretwo 那里看到的, 所以我在这里就称之为 moretwo 了.</p>
-<p><img src="/images/blog-with-hexo/moretwo0.gif" alt=""><br><img src="/images/blog-with-hexo/moretwo1.png" alt=""><br><img src="/images/blog-with-hexo/moretwo2.png" alt=""></p>
-<h3 id="0x23_huno">0x23 huno</h3><p>github地址: <a href="https://github.com/someus/huno" target="_blank" rel="external">https://github.com/someus/huno</a> 这是源自 ghost 上的 nuo 主题, 搬到了 hexo, 所以就起名为 huno 了, </p>
-<p><img src="/images/blog-with-hexo/huno1.png" alt=""><br><img src="/images/blog-with-hexo/huno2.png" alt=""></p>
-<h3 id="0x24_mist(NexT)">0x24 mist(NexT)</h3><p>github地址: <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> 预览的话我的博客就是. 不过你可能会觉得装完后还是有点区别. 虽然我们用的都是 NexT, 但是我在主题中的 _config.yml 文件中加了一行:</p>
-<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># Mist</span></span><br><span class="line"><span class="preprocessor">#scheme: Mist</span></span><br></pre></td></tr></table></figure>
-<p>这在 README 文件中有说明哦.</p>
-<h2 id="0x30_其他">0x30 其他</h2><p>到这里基本上就都说的差不多了, 不过零碎的情况文中没有提到</p>
-<h3 id="0x31_About_页面">0x31 About 页面</h3><p>在换各种主题的时候, 有时候会碰到主题里面明明有 Archive 或者 Tags 或者 Categories 或者 About 等页面, 但是你会很囧的发现没法打开, 提示说:</p>
+<p>但是我们的 shell 提示符在装系统的时候就已经被配置过了, 所以你看到已经不是原始的提示符了.</p>
+<p>在系统中, 除了<code>\s</code>, <code>\v</code>之外, 系统还提供了很多的特定字符, 在 man page 中有一一说明:</p>
+<p><img src="/images/add-git-branch-info/man-page.png" alt=""></p>
+<p>其中, 常用的一下有:</p>
 <blockquote>
-<p>Cannot GET /about/</p>
+<p>\d ：代表日期，格式为weekday month date，例如：”Mon Aug 1”<br>\H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux<br>\h ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略<br>\t ：显示时间为24小时格式，如：HH：MM：SS<br>\T ：显示时间为12小时格式<br>\A ：显示时间为24小时格式：HH：MM<br>\u ：当前用户的账号名称<br>\v ：BASH的版本信息<br>\w ：完整的工作目录名称。家目录会以 ~代替<br>\W ：利用basename取得工作目录名称，所以只会列出最后一个目录<br># ：下达的第几个命令<br>\$ ：提示字符，如果是root时，提示符为：# ，普通用户则为：$</p>
 </blockquote>
-<p>原因是你没有生成 about 页面, 只要<code>hexo new page about</code> 就可以了. 这个命令会在 source/ 目录下新建一个 about 文件夹, 然后建立一个 index.md 文件, 然后当<code>hexo g</code>生成的时候, 就会在 public/about/ 目录下生成一个 index.html 文件了, 然后就可以访问 about 页面了. 至于 about 页面的内容, 用 markdown 语法写在 index.md 中即可.</p>
-<h3 id="0x32_引用本地jquery">0x32 引用本地jquery</h3><p>遇到一些主题使用了 google 的 jquery 的话, 没有关系, 用 <code>grep -R &quot;google&quot; .</code> 找到所有用了Google jquery 的地方, 然后把链接换成另外的 CDN 的地址好了, 或者把 jquery 下载到本地, 然后放到 theme/[ 你的主题]/ source/js/ 之类的地方, 然后把链接地址改成 <code>&lt;%- config.root %&gt;js/jquery.min.js</code>即可.</p>
-<h3 id="0x33_源码保存">0x33 源码保存</h3><p>通过<code>hexo d</code>, 我们会把 public 文件夹下的内容上传到 github 仓库的 master 分支, 那么问题来了, public 下的文件是保存了, 那其他文件怎么办嘞, 我们写博客, 换主题都是在其他文件下弄的呀. 所以我的个人习惯是新建一个 source 分支, 然后把代码都存在 source 分支上, 每次修改完, 或者写完新的博客, 就先 commit push 到远程的 source 分支, 然后在 hexo g -d 把页面生成推送到master 分支</p>
-<h2 id="0x40_结语">0x40 结语</h2><p>写的好累… Hope this arcitle will help you. That’s all, thanks you.</p>
+<p>对照上面, 我们也不难看书一般系统默认的提示符格式为: <code>\u@\h:\w\$</code>, 效果则是: </p>
+<blockquote>
+<p>andy@andy-VirtualBox:~$</p>
+</blockquote>
+<h3 id="0x12_添加_git_branch_信息">0x12 添加 git branch 信息</h3><p>首先我们来看一下添加了 git branch 信息之后的效果:</p>
+<p><img src="/images/add-git-branch-info/bash.png" alt=""></p>
+<p>所以我们现在还欠缺的只是 git branch 的名字和颜色了. 那么 git branch 的信息如何获取呢? 这个只要查询当前目录下的 .git 分支信息即可. 网上有很多时间方式, 用的最多的应该是这种:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Parses out the branch name from .git/HEAD:</span></span><br><span class="line"><span class="function"><span class="title">find_git_branch</span></span> () &#123;</span><br><span class="line">    <span class="built_in">local</span> dir=. head</span><br><span class="line">    until [ <span class="string">"<span class="variable">$dir</span>"</span> -ef / ]; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span> ]; <span class="keyword">then</span></span><br><span class="line">            head=$(&lt; <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span>)</span><br><span class="line">                <span class="keyword">if</span> [[ <span class="variable">$head</span> = ref:\ refs/heads/* ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(<span class="variable">$&#123;head#*/*/&#125;</span>)"</span></span><br><span class="line">                <span class="keyword">elif</span> [[ <span class="variable">$head</span> != <span class="string">''</span> ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(detached)"</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    git_branch=<span class="string">"(unknow)"</span></span><br><span class="line">                <span class="keyword">fi</span></span><br><span class="line">            <span class="built_in">return</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        dir=<span class="string">"../<span class="variable">$dir</span>"</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    git_branch=<span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后把这个函数添加到 PROMPT_COMMAND 中, 保证 bash 在创建提示符之前先执行该函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT_COMMAND=<span class="string">"find_git_branch; <span class="variable">$PROMPT_COMMAND</span>"</span></span><br></pre></td></tr></table></figure>
+<p>最后就是修改 PS1 变量, 把获取到的 git branch 信息添加到进去即可:</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\$</span>git_branch<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
+<p>BTW, 以上这些代码全都是添加到<code>~/.bashrc</code>文件的最后即可, 至于为什么添加到这个文件, 不在本文讨论范围内.</p>
+<h3 id="0x13_添加颜色">0x13 添加颜色</h3><p>到上面一小节结束的时候, 我们发现现在已经可以获取到 git branch 的信息了, 哪怕当前目录没有 .git 文件夹, 脚本也会自动的上级目录查找. 但是问题来了, 现在的整行提示符都是一个颜色的, 好难看, 于是我们就在想怎么才能给 git branch 信息加上颜色呢?</p>
+<p>在 PS1 变量里设置颜色, 我们可以用以下格式实现:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">e</span>[F;Bm 要改变颜色的部分 \<span class="keyword">e</span>[<span class="literal">m</span></span><br></pre></td></tr></table></figure>
+<p>其中 F 表示前景色, B 表示背景色或者代码, 当同时希望有背景色和特殊代码时, 已以<code>\e[F;B;Cm</code> 的形式, 其中 C 为代码 </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">前景 背景  颜色</span><br><span class="line">---------------------------------------</span></span><br><span class="line"><span class="code"> 30   40   黑色</span></span><br><span class="line"><span class="code"> 31   41   紅色</span></span><br><span class="line"><span class="code"> 32   42   綠色</span></span><br><span class="line"><span class="code"> 33   43   黃色</span></span><br><span class="line"><span class="code"> 34   44   藍色</span></span><br><span class="line"><span class="code"> 35   45   紫紅色</span></span><br><span class="line"><span class="code"> 36   46   青藍色</span></span><br><span class="line"><span class="code"> 37   47   白色</span></span><br><span class="line"></span><br><span class="line"><span class="code"> 代码 意义</span></span><br><span class="line"><span class="code"> -------------------------</span></span><br><span class="line"><span class="code"> 0 OFF</span></span><br><span class="line"><span class="code"> 1 高亮显示</span></span><br><span class="line"><span class="code"> 4 underline</span></span><br><span class="line"><span class="code"> 5 闪烁</span></span><br><span class="line"><span class="code"> 7 反白显示</span></span><br><span class="line"><span class="code"> 8 不可见</span></span><br></pre></td></tr></table></figure>
+<p>所以, 最终, 我们的 PS1 变为:</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\e</span><span class="special">[</span>33;1m<span class="command">\$</span>git_branch<span class="command">\e</span><span class="special">[</span>m<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
+<h2 id="0x20_ZSH">0x20 ZSH</h2><p>ZSH 和 bash 一样, 也是一种 shell, 有传言说: zsh: The last shell you’ll ever need! Z 是最后一个字母, 所以它是终极的 shell. zsh 相比于 bash 有很多的优化和改进, 但是由于 zsh 的配置较为复杂, 所以一种通用的做法是用 zsh + oh-my-zsh</p>
+<p>oh-my-zsh 可以帮你很方便的配置 zsh, github 地址是: <a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh</a></p>
+<p>安装非常简单, 首先安装必要的组件: </p>
+<p><code>sudo apt-get install git wget zsh</code></p>
+<p>然后自动获取并安装 zsh:</p>
+<p><code>wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh</code></p>
+<p>然后把默认的 shell 替换为 zsh:</p>
+<p><code>chsh -s /bin/zsh</code></p>
+<p>搞定, 用了 zsh 之后你就会发现, git branch 信息甚么的已经可以在提示符里看到了.</p>
 
       
     </div>
@@ -256,11 +216,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Blog/"> #Blog </a>
+            <a href="/tags/Git/"> #Git </a>
           
-            <a href="/tags/GitHub/"> #GitHub </a>
-          
-            <a href="/tags/HEXO/"> #HEXO </a>
+            <a href="/tags/Shell/"> #Shell </a>
           
         </div>
       
@@ -269,11 +227,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/11/add-git-branch-info/">Shell 提示符中添加 git branch 信息</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/06/blog-with-hexo/">用 HEXO 搭建个人博客</a>
             
           </div>
         </div>
@@ -378,7 +336,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01_HEXO"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 HEXO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02_gitpage"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 gitpage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_搭建"><span class="nav-number">2.</span> <span class="nav-text">0x10 搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_初始化"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_目录结构"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#_config-yml"><span class="nav-number">2.2.1.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json"><span class="nav-number">2.2.2.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaffolds"><span class="nav-number">2.2.3.</span> <span class="nav-text">scaffolds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scripts"><span class="nav-number">2.2.4.</span> <span class="nav-text">scripts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">2.2.5.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#themes"><span class="nav-number">2.2.6.</span> <span class="nav-text">themes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_配置"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x14_测试"><span class="nav-number">2.4.</span> <span class="nav-text">0x14 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_new_[layout]"><span class="nav-number">2.4.1.</span> <span class="nav-text">hexo new [layout] </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_generate"><span class="nav-number">2.4.2.</span> <span class="nav-text">hexo generate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_server"><span class="nav-number">2.4.3.</span> <span class="nav-text">hexo server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo_deploy"><span class="nav-number">2.4.4.</span> <span class="nav-text">hexo deploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他命令"><span class="nav-number">2.4.5.</span> <span class="nav-text">其他命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x15_坑"><span class="nav-number">2.5.</span> <span class="nav-text">0x15 坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x16_我各个软件和模块的版本"><span class="nav-number">2.6.</span> <span class="nav-text">0x16 我各个软件和模块的版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_主题"><span class="nav-number">3.</span> <span class="nav-text">0x20 主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x21_phase"><span class="nav-number">3.1.</span> <span class="nav-text">0x21 phase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x22_moretwo"><span class="nav-number">3.2.</span> <span class="nav-text">0x22 moretwo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x23_huno"><span class="nav-number">3.3.</span> <span class="nav-text">0x23 huno</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x24_mist(NexT)"><span class="nav-number">3.4.</span> <span class="nav-text">0x24 mist(NexT)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x30_其他"><span class="nav-number">4.</span> <span class="nav-text">0x30 其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x31_About_页面"><span class="nav-number">4.1.</span> <span class="nav-text">0x31 About 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x32_引用本地jquery"><span class="nav-number">4.2.</span> <span class="nav-text">0x32 引用本地jquery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x33_源码保存"><span class="nav-number">4.3.</span> <span class="nav-text">0x33 源码保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x40_结语"><span class="nav-number">5.</span> <span class="nav-text">0x40 结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01_实现方法"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 实现方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_Bash"><span class="nav-number">2.</span> <span class="nav-text">0x10 Bash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_expanded"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 expanded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_添加_git_branch_信息"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 添加 git branch 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_添加颜色"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 添加颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_ZSH"><span class="nav-number">3.</span> <span class="nav-text">0x20 ZSH</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
