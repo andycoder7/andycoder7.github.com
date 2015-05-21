@@ -247,7 +247,7 @@
 <p>原因是你没有生成 about 页面, 只要<code>hexo new page about</code> 就可以了. 这个命令会在 source/ 目录下新建一个 about 文件夹, 然后建立一个 index.md 文件, 然后当<code>hexo g</code>生成的时候, 就会在 public/about/ 目录下生成一个 index.html 文件了, 然后就可以访问 about 页面了. 至于 about 页面的内容, 用 markdown 语法写在 index.md 中即可.</p>
 <h3 id="0x32_引用本地jquery">0x32 引用本地jquery</h3><p>遇到一些主题使用了 google 的 jquery 的话, 没有关系, 用 <code>grep -R &quot;google&quot; .</code> 找到所有用了Google jquery 的地方, 然后把链接换成另外的 CDN 的地址好了, 或者把 jquery 下载到本地, 然后放到 theme/[ 你的主题]/ source/js/ 之类的地方, 然后把链接地址改成 <code>&lt;%- config.root %&gt;js/jquery.min.js</code>即可.</p>
 <h3 id="0x33_源码保存">0x33 源码保存</h3><p>通过<code>hexo d</code>, 我们会把 public 文件夹下的内容上传到 github 仓库的 master 分支, 那么问题来了, public 下的文件是保存了, 那其他文件怎么办嘞, 我们写博客, 换主题都是在其他文件下弄的呀. 所以我的个人习惯是新建一个 source 分支, 然后把代码都存在 source 分支上, 每次修改完, 或者写完新的博客, 就先 commit push 到远程的 source 分支, 然后在 hexo g -d 把页面生成推送到master 分支</p>
-<h2 id="0x40_结语">0x40 结语</h2><p>写的好累… Hope this arcitle will help you. That’s all, thanks you.</p>
+<h2 id="0x40_结语">0x40 结语</h2><p>写的好累… Hope this article will help you. That’s all, thanks you.</p>
 
       
     </div>
@@ -330,21 +330,21 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
