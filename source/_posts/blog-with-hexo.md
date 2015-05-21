@@ -230,7 +230,7 @@ github地址: https://github.com/iissnan/hexo-theme-next 预览的话我的博�
 
 ## 0x40 结语
 
-写的好累... Hope this arcitle will help you. That's all, thanks you.
+写的好累... Hope this article will help you. That's all, thanks you.
 
 [1]: http://hexo.io/docs/
 [2]: https://pages.github.com/
