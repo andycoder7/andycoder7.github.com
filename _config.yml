@@ -74,3 +74,5 @@ deploy:
   type: git
   repository: git@github.com:andycoder7/andycoder7.github.com.git
   branch: master
+
+duoshuo_shortname: andyyao
