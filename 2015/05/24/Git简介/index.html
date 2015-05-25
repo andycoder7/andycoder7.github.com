@@ -20,7 +20,7 @@
 
 
 
-  <meta name="keywords" content="Git,Shell," />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -41,7 +41,7 @@
   </script>
 
 
-  <title> Shell 提示符中添加 git branch 信息 // Andy's World </title>
+  <title> Git简介 // Andy's World </title>
 </head>
 
 <body>
@@ -128,7 +128,7 @@
           
           
             
-              Shell 提示符中添加 git branch 信息
+              Git简介
             
           
         </h1>
@@ -136,14 +136,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-05-11
+          发表于 2015-05-24
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/琐碎/">琐碎</a>
+              <a href="/categories/基础/">基础</a>
 
               
               
@@ -156,8 +156,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/11/add-git-branch-info/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/11/add-git-branch-info/"></span>
+            <a href="/2015/05/24/Git简介/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/24/Git简介/"></span>
             </a>
           </span>
           
@@ -171,60 +171,48 @@
       
 
       
-        <h2 id="0x00_背景">0x00 背景</h2><p>github 墙虽然没有刷起来, 但是 git 在项目中用到的还是挺多的, 经常需要在各个分支之间切换, 万一搞错分支真是会呵呵的. 这时候就想, 如果在 shell 的提示符上能实时显示出所在分支, 那该有多好. 事实证明, 有这种想法的 coder 绝对不止我一个…</p>
-<h3 id="0x01_实现方法">0x01 实现方法</h3><p>就我现在的了解, 要实现这个需求主要有两种方法:</p>
-<ul>
-<li>bash + 修改 .bashrc + 修改 PS1</li>
-<li>zsh + oh-my-zsh</li>
-</ul>
+        <h2 id="0x00_Git">0x00 Git</h2><p>Git是 Linus 用 C 实现的一个分布式版本控制工具. 我们在 coding 做项目的时候, 会有各种各样的需求, 例如想要试试一个新功能加在项目中是否会更好, 不好的话就需要把添加的代码都删了; 或者在更新代码之后发现 BUG 更多了, 还不如之前的代码呢, 这时候想变回去怎么办; 或者需要几个小伙伴一起合作开发, 把各自功能完成后, 需要把代码拼接起来, 手动拼接又略显蛋疼; 等等… </p>
+<p>这时候我们就需要一种代码版本控制的工具, 顾名思义, 就是给不同阶段的代码加上版本号, 可以帮你记住各个版本的代码是什么样的. 另外代码版本工具还可以提供团队间合作开发的功能. 代码版本控制工具有很多, 我觉得最长用的是 Git 和 SVN, 它们也代表这两种不同的版本控制思路. 前者是分布式的, 后者是集中式的. 关于集中式和分布式在<a href="http://blog.jobbole.com/84644/" target="_blank" rel="external">参考文献1</a>中有进一步的说明.</p>
 <a id="more"></a>
-<h2 id="0x10_Bash">0x10 Bash</h2><p>很多 linux 系统默认的 Shell 就是 Bash, 可以通过<code>cat /etc/shells</code>来查看本机装了哪些 shell, 然后通过<code>echo $SHELL</code>来查看自己目前使用的那个 Shell.</p>
-<p>一般来说, 要在 Bash 的提示符中自定义信息的话, 只要修改 PS1 这个变量即可. 在 man page 里, PS1 的定义是:</p>
+<p>简单来说, 不同于 SVN, 在 Git 中并没有客户端/服务器的概念, 每台电脑都拥有着完整的代码, 版本信息, 等全部数据. 各个 Git 仓库完全是平等的. 也就是说就算没有网络, 你在能在本地继续进行修改/提交/回滚代码等操作.</p>
+<p>在 Ubuntu 下使用 <code>#&gt; apt-get install git</code> 就可以安装好 git 相关的软件.</p>
+<h2 id="0x10_Git_中的一些概念">0x10 Git 中的一些概念</h2><p>在讲解 Git 的那些命令之前, 你或许需要先了解一下 Git 中的基本概念, 我相信这会帮助你更好的理解后文的内容.</p>
+<h3 id="0x11_仓库(repo)">0x11 仓库(repo)</h3><p>当我们想管理一个项目的所有代码时, 我们会在该代码的根目录下使用  <code>git init</code> 初始化一个 git 仓库(repository). 这个 git 仓库会管理该目录下所有的文件. 也就是说, 这个目录就是一个 git 仓库了. 然后 git 就可以跟踪并记录这个目录下(仓库中)所有的文件的更新与改变.</p>
+<p>现在, 我们已经有 repository 的概念了, 一般简称为 repo. 由于这个 repo 在本机, 所以这个 repo 也被称为 <strong><em>本地仓库(Local Repo)</em></strong>, 相对应的, 当然也会有 <strong><em>远程仓库(Remote Repo)</em></strong>. 也就是网络上另外一台电脑中的某一个目录. 我们可以通过一些命令来同步本地仓库和远程仓库的信息.</p>
+<h3 id="0x12_WorkSpace">0x12 WorkSpace</h3><p>有了仓库之后, 我们就需要把考虑如何把本地的代码文件提交给仓库, 让仓库帮我们进行管理. 这时候, 有一个概念: <strong><em>工作区(WorkSpace)</em></strong>, 工作区是指仓库所在目录下所有的文件. 我们所有的文件都是在工作区进行编辑的.</p>
+<p>那么仓库和工作区的区别是什么呢? 从某种角度来说, 仓库更像是个逻辑上的概念, 你是看不到它的, 而工作区则是现实上的概念. 例如现在我们在目录下新建一个文件: helloworld.c, 这时候工作区中就多了一个文件, 然而仓库中还是什么都没有. 因为我们还没有把这个文件从工作区提交给仓库进行管理. </p>
+<p>当我们完成提交后. 仓库中和工作区中都存在一个版本为 A 的文件 helloworld.c, (这里版本 A 只是我为了方便解释而随意说的, 实际上 git 中的版本号是20位十六进制的值). 然后我们对该文件进行编辑, 添加了新的代码. 于是工作区中的文件就变成了版本 B, 而此时仓库中的文件还是版本 A.</p>
+<p>所以, 实际上我们能实际操作只有工作区的文件, 仓库中的文件我们是无法直接操作的.</p>
+<h3 id="0x13_Index/Stage">0x13 Index/Stage</h3><p>在上面, 我们一直在说把文件从工作区提交到仓库, 但是其实中间还有个第三者, 叫做 <strong><em>索引(Index)</em></strong>. 我们并不是直接和 repo 说, 你来 workspace 把这个文件带走吧. 这样太简单粗暴了, 一点都不符合我们的风格…</p>
+<p>好吧, 开玩笑的, 多 index 这一层是有原因的, 毕竟有很多时候, 这个文件是否需要被提交可能你自己都还不确定. 那就先放在 index 中吧, 另外多了 index 这一层的话, 有很多操作就能很方便的实现, 例如可以把下个版本要更新的代码全部加到 index 中, 然后再一起提交到 repo. 包括撤销提交, 回滚代码等会更加方便, 让版本管理的颗粒度更加合理. </p>
+<p>所以, 一次完整的提交过程: 是先把在 workspace 修改完成后的文件加到 index 区, 然后再把 index 区的文件统一批次提交到 local repo.</p>
+<h3 id="0x14_-gitignore">0x14 .gitignore</h3><p>然而, 有时候, 有些文件, 我们并不想提交, 或者被 repo 管理, 这时候, 我们当然可以每次修改后都不把它加到 index 区, 自然也不会被 repo 管理了, 但是每次查看 repo 的状态的时候, 都会提示该文件没有被管理, 很烦的呢. 另外由于把文件从 workspace 加到 index 区的操作也支持直接对目录进行操作, 所以万一一不小心加进去了, 又是一件烦事. </p>
+<p>因此, git 想了一个办法, 可以创建一个文件, 文件名叫做:”.gitignore”, 顾名思义, 就是让 git 忽视它. 所以, 那些你不想加入版本管理的文件就添加到这个文件里好了, 可以支持单个文件名, 或者目录, 也支持通配符, 例如:</p>
 <blockquote>
-<p>PS1    The value of this parameter is expanded (see PROMPTING below) and used as the primary prompt string.  The default value is “\s-\v\$” .</p>
+<p>a.out<br>debug/<br>source/test*<br>*.o  </p>
 </blockquote>
-<p>大意是: PS1 这个参数的值是可扩展的( 具体的扩展说明参见下文对 PROMPTING 的说明), 并且是提示符的主要字符串. 其默认值是: <code>&quot;\s-\v\$&quot;</code>. </p>
-<p>说到这里, 估计大部分童鞋都和我一样…甚么鬼…甚么是叫可扩展的? 怎么扩展? PROMTING 是甚么? 提示符的主要字符串还好理解, 就是提示符那串东西的主要组成部分么, 但是那个默认值是甚么意思?</p>
-<h3 id="0x11_expanded">0x11 expanded</h3><p>所谓可扩展的, 我个人理解是指可以被再次解析的, 也就是说, 这个字符串里有一些特定字符代表着别的意思, 就好像 C 语言里面的 printf 函数一样, 虽然我们在参数里面填的是” num is %d\n “, 但是其中<code>%d</code>和<code>\n</code> 都会被再次解析, 转换成数字和换行符. 在这里也是一样的, <code>\s</code> 表示 shell 的 name, <code>\v</code> 表示 bash 的版本, <code>\$</code> 就是$, 所以按照默认值的话, 你看到的提示符应该是这样的:</p>
+<p>一项写一行, 然后只要把这个. gitignore 文件加入并提交到仓库之后, git 就会无视那些文件啦.</p>
+<p>PS: 只针对还未被管理的文件有效, 如果该文件已被 git 管理, 那么在. gitignore 中添加了也是并没有什么luan用的 =.= 这个事情告诉我们, 要拒绝它就要在一开始就动手, 先接受他再和他说你是个好人, 人家才不会走呢…</p>
+<h3 id="0x15_分支(branch)">0x15 分支(branch)</h3><p>到了现在, 把文件交给 git 进行版本管理的流程我们简单过了一下, 那么下面, 我们再讲一下 git 一个很精髓的概念: <strong><em>分支(branch)</em></strong>, branch 对于 git, 就像蒙版/图层对于 PS, 镜头对于单反一样, 没了它都完全没有甚么意义了.</p>
 <blockquote>
-<p>bash-4.3$</p>
+<p>几乎每一种版本控制系统都以某种形式支持分支。使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。在很多版本控制系统中，这是个昂贵的过程，常常需要创建一个源代码目录的完整副本，对大型项目来说会花费很长时间。<a href="http://blog.jobbole.com/25877/" target="_blank" rel="external">参考文献4</a></p>
 </blockquote>
-<p>但是我们的 shell 提示符在装系统的时候就已经被配置过了, 所以你看到已经不是原始的提示符了.</p>
-<p>在系统中, 除了<code>\s</code>, <code>\v</code>之外, 系统还提供了很多的特定字符, 在 man page 中有一一说明:</p>
-<p><img src="/images/add-git-branch-info/man-page.png" alt=""></p>
-<p>其中, 常用的一下有:</p>
-<blockquote>
-<p>\d ：代表日期，格式为weekday month date，例如：”Mon Aug 1”<br>\H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux<br>\h ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略<br>\t ：显示时间为24小时格式，如：HH：MM：SS<br>\T ：显示时间为12小时格式<br>\A ：显示时间为24小时格式：HH：MM<br>\u ：当前用户的账号名称<br>\v ：BASH的版本信息<br>\w ：完整的工作目录名称。家目录会以 ~代替<br>\W ：利用basename取得工作目录名称，所以只会列出最后一个目录<br># ：下达的第几个命令<br>\$ ：提示字符，如果是root时，提示符为：# ，普通用户则为：$</p>
-</blockquote>
-<p>对照上面, 我们也不难看书一般系统默认的提示符格式为: <code>\u@\h:\w\$</code>, 效果则是: </p>
-<blockquote>
-<p>andy@andy-VirtualBox:~$</p>
-</blockquote>
-<h3 id="0x12_添加_git_branch_信息">0x12 添加 git branch 信息</h3><p>首先我们来看一下添加了 git branch 信息之后的效果:</p>
-<p><img src="/images/add-git-branch-info/bash.png" alt=""></p>
-<p>所以我们现在还欠缺的只是 git branch 的名字和颜色了. 那么 git branch 的信息如何获取呢? 这个只要查询当前目录下的 .git 分支信息即可. 网上有很多时间方式, 用的最多的应该是这种:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Parses out the branch name from .git/HEAD:</span></span><br><span class="line"><span class="function"><span class="title">find_git_branch</span></span> () &#123;</span><br><span class="line">    <span class="built_in">local</span> dir=. head</span><br><span class="line">    until [ <span class="string">"<span class="variable">$dir</span>"</span> -ef / ]; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span> ]; <span class="keyword">then</span></span><br><span class="line">            head=$(&lt; <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span>)</span><br><span class="line">                <span class="keyword">if</span> [[ <span class="variable">$head</span> = ref:\ refs/heads/* ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(<span class="variable">$&#123;head#*/*/&#125;</span>)"</span></span><br><span class="line">                <span class="keyword">elif</span> [[ <span class="variable">$head</span> != <span class="string">''</span> ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(detached)"</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    git_branch=<span class="string">"(unknow)"</span></span><br><span class="line">                <span class="keyword">fi</span></span><br><span class="line">            <span class="built_in">return</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        dir=<span class="string">"../<span class="variable">$dir</span>"</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    git_branch=<span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后把这个函数添加到 PROMPT_COMMAND 中, 保证 bash 在创建提示符之前先执行该函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT_COMMAND=<span class="string">"find_git_branch; <span class="variable">$PROMPT_COMMAND</span>"</span></span><br></pre></td></tr></table></figure>
-<p>最后就是修改 PS1 变量, 把获取到的 git branch 信息添加到进去即可:</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\$</span>git_branch<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
-<p>BTW, 以上这些代码全都是添加到<code>~/.bashrc</code>文件的最后即可, 至于为什么添加到这个文件, 不在本文讨论范围内.</p>
-<h3 id="0x13_添加颜色">0x13 添加颜色</h3><p>到上面一小节结束的时候, 我们发现现在已经可以获取到 git branch 的信息了, 哪怕当前目录没有 .git 文件夹, 脚本也会自动的上级目录查找. 但是问题来了, 现在的整行提示符都是一个颜色的, 好难看, 于是我们就在想怎么才能给 git branch 信息加上颜色呢?</p>
-<p>在 PS1 变量里设置颜色, 我们可以用以下格式实现:</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">e</span>[F;Bm 要改变颜色的部分 \<span class="keyword">e</span>[<span class="literal">m</span></span><br></pre></td></tr></table></figure>
-<p>其中 F 表示前景色, B 表示背景色或者代码, 当同时希望有背景色和特殊代码时, 已以<code>\e[F;B;Cm</code> 的形式, 其中 C 为代码 </p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">前景 背景  颜色</span><br><span class="line">---------------------------------------</span></span><br><span class="line"><span class="code"> 30   40   黑色</span></span><br><span class="line"><span class="code"> 31   41   紅色</span></span><br><span class="line"><span class="code"> 32   42   綠色</span></span><br><span class="line"><span class="code"> 33   43   黃色</span></span><br><span class="line"><span class="code"> 34   44   藍色</span></span><br><span class="line"><span class="code"> 35   45   紫紅色</span></span><br><span class="line"><span class="code"> 36   46   青藍色</span></span><br><span class="line"><span class="code"> 37   47   白色</span></span><br><span class="line"></span><br><span class="line"><span class="code"> 代码 意义</span></span><br><span class="line"><span class="code"> -------------------------</span></span><br><span class="line"><span class="code"> 0 OFF</span></span><br><span class="line"><span class="code"> 1 高亮显示</span></span><br><span class="line"><span class="code"> 4 underline</span></span><br><span class="line"><span class="code"> 5 闪烁</span></span><br><span class="line"><span class="code"> 7 反白显示</span></span><br><span class="line"><span class="code"> 8 不可见</span></span><br></pre></td></tr></table></figure>
-<p>所以, 最终, 我们的 PS1 变为:</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\e</span><span class="special">[</span>33;1m<span class="command">\$</span>git_branch<span class="command">\e</span><span class="special">[</span>m<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
-<h2 id="0x20_ZSH">0x20 ZSH</h2><p>ZSH 和 bash 一样, 也是一种 shell, 有传言说: zsh: The last shell you’ll ever need! Z 是最后一个字母, 所以它是终极的 shell. zsh 相比于 bash 有很多的优化和改进, 但是由于 zsh 的配置较为复杂, 所以一种通用的做法是用 zsh + oh-my-zsh</p>
-<p>oh-my-zsh 可以帮你很方便的配置 zsh, github 地址是: <a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh</a></p>
-<p>安装非常简单, 首先安装必要的组件: </p>
-<p><code>sudo apt-get install git wget zsh</code></p>
-<p>然后自动获取并安装 zsh:</p>
-<p><code>wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh</code></p>
-<p>然后把默认的 shell 替换为 zsh:</p>
-<p><code>chsh -s /bin/zsh</code></p>
-<p>搞定, 用了 zsh 之后你就会发现, git branch 信息甚么的已经可以在提示符里看到了.</p>
+<p>由于实现方式不同, git 的分支操作相当的轻量级, 基本可以瞬间完成, 切换分支合并分支等操作的也相当的方便和快捷. 那么我们又为什么要使用分支呢?</p>
+<p>在现实项目中, 我们经常会有这样的需求: 要开发某个大型的项目, 有很多的码农等着 coding. 于是这个项目被分为很多的功能模块, 每个码农拿一块去啃… 或者一个之前运行的好好的项目, 突然发现了一个 bug, 需要去把这个 bug fix 了.</p>
+<p>对于第一种需求, 每个码农各开一个分支 coding, 这样互相之间的代码就不会有甚么影响了, 当各自功能开发完毕后再合并到主分支. 而对于第二种, 为了避免新增代码对原来代码产生较大的影响, 并且为了方便测试, 这时候, 需要从主分支上新开出一个分支, 在分支上把 bug fix 了, 然后测试完成后在 merge 回 master 分支.</p>
+<p>BTW, 在 git 中, 从某个分支新开一个分支的意思, 就是把这个分支上的代码一模一样拷贝一份出来, 然后, 你在新的分支上开发就不会影响原有分支上的代码了. 这在下面的 git 基本操作和基于 git 的工作流中会进一步解释说明.</p>
+<h2 id="0x20_基本的_Git_操作">0x20 基本的 Git 操作</h2><p>了解了基本概念之后, 那么接下来就是基本的操作了. </p>
+<h3 id="0x21_初始化_git_repo">0x21 初始化 git repo</h3><p>初始化 git repo 一般有两种方法, 一种就是在上文提到的: <code>git init</code>. 这会在当前目录初始化一个空的 git repo, 然后一个新的世界就开始啦. 当然, 一般我们除了 local repo, 还会需要有一个 remote repo 用于做代码的备份. 如何在 local repo 添加 remote repo 信息和操作 remote repo 我们在后面会讲.</p>
+<p>另一种是<code>git clone</code>, clone 克隆, 顾名思义, 就是把一个 reomte git repo 复制到本地. 在拷贝到本地后, 除了代码和版本信息以外, 会在 local repo 中添加 remote repo 的一些信息, 不需要再手动添加了.</p>
+<h3 id="0x22_添加到_index_区">0x22 添加到 index 区</h3><h3 id="0x23_提交到_local_repo">0x23 提交到 local repo</h3><h3 id="0x24_添加_remote_repo">0x24 添加 remote repo</h3><h3 id="0x25_推送到_remote_repo">0x25 推送到 remote repo</h3><h3 id="0x26_各种撤销回滚">0x26 各种撤销回滚</h3><h3 id="0x27_创建/切换/删除分支">0x27 创建/切换/删除分支</h3><h3 id="0x28_合并分支">0x28 合并分支</h3><h3 id="0x29_其他">0x29 其他</h3><p>git log<br>git status<br>git config<br>git tag</p>
+<h2 id="0x30_基于_Git_的_Workflow">0x30 基于 Git 的 Workflow</h2><h2 id="0x40_结语">0x40 结语</h2><p>这篇文章, 只是对 git 的一个简介, 实现原理层次的介绍和一些不常用的 git 命令都没有提到, 如果有机会下次, 下次做再说.</p>
+<h2 id="参考文献">参考文献</h2><ol>
+<li><a href="http://blog.jobbole.com/84644/" target="_blank" rel="external">Git Step by Step (1)：Git 简介</a></li>
+<li><a href="http://blog.jobbole.com/84646/" target="_blank" rel="external">Git Step by Step (2)：本地Repo</a></li>
+<li><a href="http://www.zhihu.com/question/19946553" target="_blank" rel="external">为何每次 git commit 之前都需要 add 一次才能 commit ？</a></li>
+<li><a href="http://blog.jobbole.com/25877/" target="_blank" rel="external">Git详解之三：Git分支</a></li>
+<li><a href="http://www.open-open.com/lib/view/open1332904495999.html" target="_blank" rel="external">Git使用基础篇</a></li>
+</ol>
 
       
     </div>
@@ -235,8 +223,6 @@
           
             <a href="/tags/Git/"> #Git </a>
           
-            <a href="/tags/Shell/"> #Shell </a>
-          
         </div>
       
 
@@ -244,13 +230,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/21/sha512的算法与实现/">SHA-512的算法与实现</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/06/blog-with-hexo/">用 HEXO 搭建个人博客</a>
+              <a href="/2015/05/21/sha512的算法与实现/">SHA-512的算法与实现</a>
             
           </div>
         </div>
@@ -266,8 +250,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/05/11/add-git-branch-info/"
-               data-title="Shell 提示符中添加 git branch 信息" data-url="http://andy-yao.me/2015/05/11/add-git-branch-info/">
+          <div class="ds-thread" data-thread-key="2015/05/24/Git简介/"
+               data-title="Git简介" data-url="http://andy-yao.me/2015/05/24/Git简介/">
           </div>
         
       </div>
@@ -359,7 +343,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01_实现方法"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 实现方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_Bash"><span class="nav-number">2.</span> <span class="nav-text">0x10 Bash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_expanded"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 expanded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_添加_git_branch_信息"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 添加 git branch 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_添加颜色"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 添加颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_ZSH"><span class="nav-number">3.</span> <span class="nav-text">0x20 ZSH</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_Git"><span class="nav-number">1.</span> <span class="nav-text">0x00 Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_Git_中的一些概念"><span class="nav-number">2.</span> <span class="nav-text">0x10 Git 中的一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_仓库(repo)"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 仓库(repo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_WorkSpace"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 WorkSpace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_Index/Stage"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 Index/Stage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x14_-gitignore"><span class="nav-number">2.4.</span> <span class="nav-text">0x14 .gitignore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x15_分支(branch)"><span class="nav-number">2.5.</span> <span class="nav-text">0x15 分支(branch)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_基本的_Git_操作"><span class="nav-number">3.</span> <span class="nav-text">0x20 基本的 Git 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x21_初始化_git_repo"><span class="nav-number">3.1.</span> <span class="nav-text">0x21 初始化 git repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x22_添加到_index_区"><span class="nav-number">3.2.</span> <span class="nav-text">0x22 添加到 index 区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x23_提交到_local_repo"><span class="nav-number">3.3.</span> <span class="nav-text">0x23 提交到 local repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x24_添加_remote_repo"><span class="nav-number">3.4.</span> <span class="nav-text">0x24 添加 remote repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x25_推送到_remote_repo"><span class="nav-number">3.5.</span> <span class="nav-text">0x25 推送到 remote repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x26_各种撤销回滚"><span class="nav-number">3.6.</span> <span class="nav-text">0x26 各种撤销回滚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x27_创建/切换/删除分支"><span class="nav-number">3.7.</span> <span class="nav-text">0x27 创建/切换/删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x28_合并分支"><span class="nav-number">3.8.</span> <span class="nav-text">0x28 合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x29_其他"><span class="nav-number">3.9.</span> <span class="nav-text">0x29 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x30_基于_Git_的_Workflow"><span class="nav-number">4.</span> <span class="nav-text">0x30 基于 Git 的 Workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x40_结语"><span class="nav-number">5.</span> <span class="nav-text">0x40 结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
