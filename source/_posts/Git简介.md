@@ -1,0 +1,330 @@
+title: "Git简介"
+date: 2015-05-24 10:19:34
+tags: [Git]
+categories: 基础
+---
+
+
+
+## 0x00 Git
+
+Git是 Linus 用 C 实现的一个分布式版本控制工具. 我们在 coding 做项目的时候, 会有各种各样的需求, 例如想要试试一个新功能加在项目中是否会更好, 不好的话就需要把添加的代码都删了; 或者在更新代码之后发现 BUG 更多了, 还不如之前的代码呢, 这时候想变回去怎么办; 或者需要几个小伙伴一起合作开发, 把各自功能完成后, 需要把代码拼接起来, 手动拼接又略显蛋疼; 等等... 
+
+这时候我们就需要一种代码版本控制的工具, 顾名思义, 就是给不同阶段的代码加上版本号, 可以帮你记住各个版本的代码是什么样的. 另外代码版本工具还可以提供团队间合作开发的功能. 代码版本控制工具有很多, 我觉得最常用的是 Git 和 SVN, 它们也代表这两种不同的版本控制思路. 前者是分布式的, 后者是集中式的. 关于集中式和分布式在[参考文献1][1]中有进一步的说明.
+
+<!-- more -->
+
+简单来说, 不同于 SVN, 在 Git 中并没有客户端/服务器的概念, 每台电脑都拥有着完整的代码, 版本信息, 等全部数据. 各个 Git 仓库完全是平等的. 也就是说就算没有网络, 你在能在本地继续进行修改/提交/回滚代码等操作.
+
+在 Ubuntu 下使用 `# apt-get install git` 就可以安装好 git 相关的软件.
+
+## 0x10 Git 中的一些概念
+
+在讲解 Git 的那些命令之前, 你或许需要先了解一下 Git 中的基本概念, 我相信这会帮助你更好的理解后文的内容.
+
+***如果只是想查一下基本的操作请直接跳到 0x20 基本的 Git 操作***
+
+### 0x11 仓库(repo)
+
+当我们想管理一个项目的所有代码时, 我们会在该代码的根目录下使用  `git init` 初始化一个 git 仓库(repository). 这个 git 仓库会管理该目录下所有的文件. 也就是说, 这个目录就是一个 git 仓库了. 然后 git 就可以跟踪并记录这个目录下(仓库中)所有的文件的更新与改变.
+
+现在, 我们已经有 repository 的概念了, 一般简称为 repo. 由于这个 repo 在本机, 所以这个 repo 也被称为 ***本地仓库(Local Repo)***, 相对应的, 当然也会有 ***远程仓库(Remote Repo)***. 也就是网络上另外一台电脑中的某一个目录. 我们可以通过一些命令来同步本地仓库和远程仓库的信息.
+
+### 0x12 WorkSpace
+
+有了仓库之后, 我们就需要把考虑如何把本地的代码文件提交给仓库, 让仓库帮我们进行管理. 这时候, 有一个概念: ***工作区(WorkSpace)***, 工作区是指仓库所在目录下所有的文件. 我们所有的文件都是在工作区进行编辑的.
+
+那么仓库和工作区的区别是什么呢? 从某种角度来说, 仓库更像是个逻辑上的概念, 你是看不到它的, 而工作区则是现实上的概念. 例如现在我们在目录下新建一个文件: helloworld.c, 这时候工作区中就多了一个文件, 然而仓库中还是什么都没有. 因为我们还没有把这个文件从工作区提交给仓库进行管理. 
+
+当我们完成提交后. 仓库中和工作区中都存在一个版本为 A 的文件 helloworld.c, (这里版本 A 只是我为了方便解释而随意说的, 实际上 git 中的版本号是20位十六进制的值). 然后我们对该文件进行编辑, 添加了新的代码. 于是工作区中的文件就变成了版本 B, 而此时仓库中的文件还是版本 A.
+
+所以, 实际上我们能实际操作只有工作区的文件, 仓库中的文件我们是无法直接操作的.
+
+### 0x13 Index/Stage
+
+在上面, 我们一直在说把文件从工作区提交到仓库, 但是其实中间还有个第三者, 叫做 ***索引(Index)***. 我们并不是直接和 repo 说, 你来 workspace 把这个文件带走吧. 这样太简单粗暴了, 一点都不符合我们的风格...
+
+好吧, 开玩笑的, 多 index 这一层是有原因的, 毕竟有很多时候, 这个文件是否需要被提交可能你自己都还不确定. 那就先放在 index 中吧, 另外多了 index 这一层的话, 有很多操作就能很方便的实现, 例如可以把下个版本要更新的代码全部加到 index 中, 然后再一起提交到 repo. 包括撤销提交, 回滚代码等会更加方便, 让版本管理的颗粒度更加合理. 
+
+所以, 一次完整的提交过程: 是先把在 workspace 修改完成后的文件加到 index 区, 然后再把 index 区的文件统一批次提交到 local repo.
+
+### 0x14 .gitignore
+
+然而, 有时候, 有些文件, 我们并不想提交, 或者被 repo 管理, 例如一些本地的配置文件, 临时的测试文件, debug 时生成的二进制文件等等. 这时候, 我们当然可以每次修改后都不把它加到 index 区, 自然也不会被 repo 管理了, 但是每次查看 repo 的状态的时候, 都会提示该文件没有被管理, 很烦的呢. 另外由于把文件从 workspace 加到 index 区的操作也支持直接对目录进行操作, 所以万一一不小心加进去了, 又是一件烦事. 
+
+因此, git 想了一个办法, 可以创建一个文件, 文件名叫做:".gitignore", 顾名思义, 就是让 git 忽视它. 所以, 那些你不想加入版本管理的文件就添加到这个文件里好了, 可以支持单个文件名, 或者目录, 也支持通配符, 例如:
+
+> a.out  
+> debug/  
+> source/test\*  
+> \*.o  
+
+一项写一行, 然后只要把这个. gitignore 文件加入并提交到仓库之后, git 就会无视那些文件啦.
+
+PS: 只针对还未被添加到 index 的文件有效, 如果该文件已被 git 管理, 那么在. gitignore 中添加了也是并没有什么luan用的 =.= 这个事情告诉我们, 要拒绝它就要在一开始就动手, 先接受他再和他说你是个好人, 人家才不会走呢...
+
+### 0x15 分支(branch)
+
+到了现在, 把文件交给 git 进行版本管理的流程我们简单过了一下, 那么下面, 我们再讲一下 git 一个很精髓的概念: ***分支(branch)***, branch 对于 git, 就像蒙版/图层对于 PS, 镜头对于单反一样, 没了它都完全没有甚么意义了.
+
+>几乎每一种版本控制系统都以某种形式支持分支。使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。在很多版本控制系统中，这是个昂贵的过程，常常需要创建一个源代码目录的完整副本，对大型项目来说会花费很长时间。[参考文献4][4]
+
+由于实现方式不同, git 的分支操作相当的轻量级, 基本可以瞬间完成, 切换分支合并分支等操作的也相当的方便和快捷. 那么我们又为什么要使用分支呢?
+
+在现实项目中, 我们经常会有这样的需求: 要开发某个大型的项目, 有很多的码农等着 coding. 于是这个项目被分为很多的功能模块, 每个码农拿一块去啃... 或者一个之前运行的好好的项目, 突然发现了一个 bug, 需要去把这个 bug fix 了.
+
+对于第一种需求, 每个码农各开一个分支 coding, 这样互相之间的代码就不会有甚么影响了, 当各自功能开发完毕后再合并到主分支. 而对于第二种, 为了避免新增代码对原来代码产生较大的影响, 并且为了方便测试, 这时候, 需要从主分支上新开出一个分支, 在分支上把 bug fix 了, 然后测试完成后在 merge 回 master 分支.
+
+BTW, 在 git 中, 从某个分支新开一个分支的意思, 就是把这个分支上的代码一模一样拷贝一份出来, 然后, 你在新的分支上开发就不会影响原有分支上的代码了. 这在下面的 git 基本操作和基于 git 的工作流中会进一步解释说明.
+
+## 0x20 基本的 Git 操作
+
+了解了基本概念之后, 那么接下来就是基本的操作了. 
+
+### 0x21 初始化 git repo
+
+```
+# 初始化一个空的 git 仓库
+git init
+
+# 把一个 remote repo 搬到本地
+git clone <REMOTE_REPO_URL>
+
+#配置使用git仓库的人员姓名  
+git config --global user.name <"YOUR_ NAME">
+
+#配置使用git仓库的人员email  
+git config --global user.email <YOUR_EMAIL_ADDRESS>
+```
+
+初始化 git repo 一般有两种方法, 一种就是在上文提到的: `git init`. 这会在当前目录初始化一个空的 git repo, 然后一个新的世界就开始啦. 当然, 一般我们除了 local repo, 还会需要有一个 remote repo 用于做代码的备份. 如何在 local repo 添加 remote repo 信息和操作 remote repo 我们在后面会讲. 
+
+执行完`git init` 后, 本地目录下多了一个 .git 文件夹, 里面存放着所有的版本信息、更新记录，以及Git进行仓库管理的相关信息等。所以，不要轻易修改/删除其中的文件，以免造成数据的丢失。
+
+![git init](/images/git/git_init.png)
+
+另一种是`git clone`, clone 克隆, 顾名思义, 就是把一个 reomte git repo 复制到本地. 在拷贝到本地后, 除了代码和版本信息以外, 会在 local repo 中添加 remote repo 的一些信息, 不需要再手动添加了.
+
+remote repo 的地址的也有两种形式, 一种是通过 SSH 来验证身份, 一般的形式是: ` git@github.com:andycoder7/andycoder7.github.com.git` 另外一种是通过 HTTPS + 用户名 + 密码, 一般的形式是: `https://github.com/andycoder7/andycoder7.github.com.git` 在 github 的项目的右侧可以找到该地址:
+
+![git clone url](/images/git/git_url.png)
+
+### 0x22 添加到 index 区
+
+现在, 我们已经有了一个 local repo 了, 按照正常的流程, 我们现在应该开始 coding 了, 于是就会多了一些文件 , 或者修改了一些文件, 例如, 我们写了一个 helloworld.c, 这时候我们需要把这个文件添加到 index 区, 然后才能提交到 local repo.  有两种办法可以实现:
+
+```
+# 方法一: 添加单个文件
+git add helloworld.c
+
+# 方法二: 添加整个目录, linux 中 "." 表示当前目录
+# 直接添加目录的话, 会把目录下的所有文件都添加到 index 区. 包括子目录
+git add .
+
+# 删除 index 区中的文件(保留工作区的文件)
+git rm --cached <file>
+git rm --cached -r <dir>
+
+# 查看本地仓库状态
+git status
+```
+
+另外可以通过 `git status` 获取当前 repo 的状态, 包括哪些文件没有被添加到 index 区, 哪些文件没有被提交到 repo等等.
+
+![git add](/images/git/git_add.png)
+
+如果后悔了的话也是可以按照 git status 上的提示, 通过`git rm --cache <file>`来撤销操作, 如果要撤销一个 目录的添加的话, 则需要添加参数 `-r`:  `git rm --cached -r <dir>`
+
+另外 `git add` 操作除了刚开始用来把 untracked 的文件添加到 index, 也被用来确认文件的修改, 也就是说, 当文件 A 被修改之后, 虽然文件 A 已经在仓库里了, 但还是需要 git add 确认修改后的文件要被纳入版本管理.
+
+
+### 0x23 提交到 local repo
+
+添加到 index 区了之后, 然后就只需要提交到 local repo 就可以被纳入管理了, 提交操作也很简单: 
+
+```
+# -m 参数表示本次提交的提交信息
+git commit -m "COMMIT MESSAGE"
+```
+
+每次提交的时候都需要附上本次提交的信息, 就像写代码时需要注释一下, 为了以后回顾代码的时候, 知道自己做了哪些工作, 或者在回滚代码的时候知道回滚到哪个版本.
+
+另外一个很常用的参数是`-a`, 由于在每次提交的时候, 80%的时候都是提交修改的文件, 要添加新的新文件的概率和数量都很少, 为了避免每次提交之前都要 add 好多只是修改的文件, 所以直接提供了`-a`参数表示把所有修改的文件都添加到 index 区, 然后 commit 到 local repo.
+
+```
+# 其实我才是用的最多的命令
+git commit -a -m "COMMIT MESSAGE"
+
+# 直接把文件从仓库中删除(工作区中的文件也会被删除)
+git rm <file>
+
+# 查看local repo 的提交信息
+git log
+```
+
+关于 add/commit/workspace/index/local repo 的关系可以参见下图:
+
+![git add relation](/images/git/git_add_relation.png)
+
+### 0x24 添加 remote repo
+
+commit 之后, 代码就在 local repo 了, 这时候, 最基本的代码版本控制的功能就已经实现了, 但是伴随着代码版本控制, 代码备份和合作开发的需求也很明确. 这个需求的实现方式便是通过 remote repo 来解决. 我们只需要再输入:
+
+```
+# 需要告诉 git, 要把代码推送(push)到哪个远程仓库的哪个分支.
+# 分支一般是 master(主分支)
+git push REMOTE_REPO_URL BRANCH
+
+# 相对应的把代码从远程仓库(pull)拉下来
+git pull REMOTE_REPO_URL BRANCH
+```
+
+这里要填的远程仓库既可以是0x21说到的那两种 url, 也可以是别名, 毕竟那串字符串太长了, 你让我输一次还好, 要是每次都输, 才不是懒惰的程序员能接受的事情呢. 于是就出现了别名这种东西. 别名的操作可以通过`git remote`来实现.
+
+如果是 clone 下来的项目基本需要管, 因为本来就是从远程仓库 clone 下来的, remote repo 的信息自动会加到配置文件中, 默认主要 remote repo 的别名是 origin. 也可以在同一个本地仓库中添加多个远程仓库的信息和别名.
+
+```
+# 查看当前有哪些远程仓库
+git remote -v
+
+# 来添加 remote repo 和其别名
+git remote add <name> <url>
+
+# 删除别名和对应的 remote repo
+git remote rm <name>
+```
+
+### 0x25 各种撤销回滚
+
+```
+# 把文件从 local repo 恢复到 workspace
+git checkout <file>
+
+# 在 index 区撤销<file> 
+git reset <file> 
+
+# 从仓库把最近一次提交的文件撤销到 index 区, 工作区的文件不变(也就是撤销上一个版本的提交)
+git reset --soft HEAD^ 
+
+# 从仓库把最近一次提交的文件撤销到 workspace, 文件不变(也就是撤销 commit 和 add)
+git reset HEAD^
+git reset --mixed HEAD^
+
+# 从仓库把最近一次提交的代码全部撤销, 包括 workspace 中的文件也变成上个版本的代码
+# 执行该操作时, 请慎重!!!!!!!
+git reset --hard HEAD^  
+
+# 向前撤销 n 个版本的代码, HEAD^ 等同于 HEAD~1
+git reset --soft HEAD~n
+```
+
+### 0x26 创建/切换/删除分支
+
+```
+# 查看所有的分支(包括本地仓库和远程仓库)
+git branch -a 
+
+# 在本地仓库中创建新的分支
+git branch <new_branch> 
+
+# 查看各个分支最后提交信息
+git branch -v           
+
+# 切换到某个分支  
+git checkout <branch>    
+
+# 创建新的分支，并且切换过去  
+git checkout -b <new_branch>
+
+# 基于branch创建新的new_branch  
+git checkout -b <new_branch> <branch>  
+
+# 删除某个分支  
+git branch -d <branch> 
+
+# 强制删除某个分支 (未被合并的分支被删除的时候需要强制)  
+git branch -D <branch>  
+```
+
+### 0x27 合并分支
+
+```
+# 将branch分支合并到当前分支  
+git merge <branch>    
+```
+如果一切正常, 执行完两个分支就合并了, 但是有很多时候, 合并的时候会产生冲突. 例如现在有一个项目两个人合作开发, 大家的代码都提交到 dev 分支, 刚开始的时候, 两个人各从 dev 分支开出一条新的分支: devByA, devByB. 当开发完成后, A 先把自己合并到 dev 分支, 这时候并不会有什么问题, 但是之后 B 把自己代码合上去的时候, 如果这两份代码都修改了同一个文件, 那么 git 就不知道到底哪种修改才是对的, 这时候就产生了"冲突".
+
+或者说, 对于 git, 它对文件的版本控制是基于时间的, dev 分支上的文件 test.c 刚开始的时候是2号修改的, A/B 都对它进行了编辑, 在 A 把自己合并回 dev 分支的时候, git 看到 A 的请求中 test.c 的修改时间是3号, 所以认为 A 的修改是没问题的, 但是当 B 也试图把自己的修改合并上去的时候, git 看到 B 的修改也是基于2号的那个 test.c, 那么应该保存 A 的修改还是 B 的修改呢? 
+
+这时候就需要人为的介入来"解冲突"了.  当冲突的时候会提示:
+
+>Auto-merging helloworld.c  
+>CONFLICT (content): Merge conflict in helloworld.c  
+>Automatic merge failed; fix conflicts and then commit the result.
+
+提示中会显示所有冲突的文件, 我们通过 vi 等打开冲突的文件, 会发现文件中冲突的部分会以如下形式被标示出来:
+
+```
+<<<<<<< HEAD  
+ext under test branch  
+=======  
+text under master branch  
+>>>>>> master
+```
+
+明显, 下面的是 master 分支中的修改内容, 而上面是当前分支中的修改内容, 我们只需要把我们不要的都删了, 然后把修改后的文件再把冲突的文件 add & commit 就完成了本次解冲突.
+
+### 0x28 其他
+
+上面说到的只是最基本最基本的一些 git 命令, 但也基本够用了, 记不清楚也没关系, 要善用`git status` 和看 git 命令返回的提示说明, 有很多信息可以直接从那里获取到, 例如上面解冲突的时候, 返回信息就说了哪些文件有冲突, 然后让我们去 fix conflicts 然后 commit 结果, 我们只要照做就行了. 或者在创建了新文件之后, git status 则会说:
+
+>On branch test  
+>Untracked files:  
+> (use "git add <file>..." to include in what will be committed)  
+>  
+>  readme  
+>  
+>nothing added to commit but untracked files present (use "git add" to track)
+
+也直接提示说了: 用`git add`把文件跟踪起来, 等待被 commit...
+
+对于不清楚的命令也可以用: `git <order> --help` 查看相关的帮助文档.
+
+## 0x30 基于 Git 的 Workflow
+
+有很多的项目现在都是基于 git 来合作开发的, 关于合作开发的流程也有很多的方法, 根据各个团队的默契和习惯都会有一定的变化, 但是根本上都是基于下图变化出来的:
+
+![git workflow](/images/git/git_workflow.jpg)
+
+简单的说就是: 一共有两个主要的分支: master 和 develop. master 上的代码都是已经经过测试的稳定版本, 每一个都能直接拿出来部署, develop 分支主要用于开发新功能.
+
+在一个项目刚开始的时候就创建好了 master 分支, 然后从 master 分支上又开出了 develop 分支. 然后各 coder 从 develop 分支上开出自己的分支进行功能开发, 一般这样的分支叫 feather branch. 当开发完成后再 merge 回 develop 分支, 当一个发布版所有的功能都开发完成后, 把 devop 分支上再开出一条 release 分支用于测试, 这条release分支上的版本更新仅限于 bug fix. 当测试无误后就把这个分支 merge 到 develop 分支, 和 master 分支, 然后在 master 分支上打一个标签(tag), 以后要部署某一个版本的时候直接找标签即可.
+
+另一方面, 当代码在 release 分支上测试的时候, develop 分支可以继续下一个版本的开发工作, 同样再开出新的 feather 分支, coding, merge 回去...
+
+详细介绍可以看[参考文献7][7]
+
+## 0x40 结语
+
+这篇文章, 只是对 git 的一个简介, 实现原理层次的介绍和一些不常用的 git 命令都没有提到, 如果有机会, 下次做再说吧. 另外觉得文本有什么讲的不清楚的可以在下面评论中告诉我, 当然我理不理你就是另一码事啦, 哈哈:)
+
+
+
+## 参考文献
+
+1. [Git Step by Step (1)：Git 简介][1]
+2. [Git Step by Step (2)：本地Repo][2]
+3. [为何每次 git commit 之前都需要 add 一次才能 commit ？][3]
+4. [Git详解之三：Git分支][4]
+5. [Git使用基础篇][5]
+6. [Git 常用命令整理][6]
+7. [一个成功的 Git 分支模型][7]
+
+
+[1]: http://blog.jobbole.com/84644/
+[2]: http://blog.jobbole.com/84646/
+[3]: http://www.zhihu.com/question/19946553
+[4]: http://blog.jobbole.com/25877/
+[5]: http://www.open-open.com/lib/view/open1332904495999.html
+[6]: http://justcoding.iteye.com/blog/1830388
+[7]: http://blog.jobbole.com/81196/
