@@ -20,7 +20,7 @@
 
 
 
-  <meta name="keywords" content="FUCK,GFW," />
+  <meta name="keywords" content="ios,objective-c," />
 
 
 
@@ -41,7 +41,7 @@
   </script>
 
 
-  <title> HOW TO FUCK GFW // Andy's World </title>
+  <title> 学习oc第一天 // Andy's World </title>
 </head>
 
 <body>
@@ -128,7 +128,7 @@
           
           
             
-              HOW TO FUCK GFW
+              学习oc第一天
             
           
         </h1>
@@ -136,14 +136,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-09-06
+          发表于 2015-11-25
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/干！就一个字/">干！就一个字</a>
+              <a href="/categories/ios/">ios</a>
 
               
               
@@ -156,8 +156,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/06/HOW-TO-FUCK-GFW/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/06/HOW-TO-FUCK-GFW/"></span>
+            <a href="/2015/11/25/学习oc第一天/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/25/学习oc第一天/"></span>
             </a>
           </span>
           
@@ -171,68 +171,62 @@
       
 
       
-        <center><strong><em> I’m sorry, OPENSHIFT. </em></strong></center>
-
-<h2 id="0x00_搭建ssh代理服务">0x00 搭建ssh代理服务</h2><p>1 在浏览器中打开 <a href="http://www.openshift.com" target="_blank" rel="external">http://www.openshift.com</a></p>
-<p>2 注册一个账号，点击右上角的 <a href="https://www.openshift.com/app/account/new" target="_blank" rel="external">SIGN UP</a> </p>
-<p><img src="/images/how-to-fuck-gfw/2.png" alt=""></p>
-<p>3 填写邮箱、密码、确认密码、验证码，然后点击注册（SIGN UP）<br><a id="more"></a></p>
-<p><img src="/images/how-to-fuck-gfw/3.png" alt=""><br><img src="/images/how-to-fuck-gfw/3_2.png" alt=""></p>
-<p>4 进入邮箱，并点击链接，完成注册。</p>
-<p><img src="/images/how-to-fuck-gfw/4.png" alt=""></p>
-<p>5 点击链接后，出现如下界面，点击“我接受（I Accept）”完成注。</p>
-<p><img src="/images/how-to-fuck-gfw/5.png" alt=""></p>
-<p>6 自动跳转至如下页面，点击下方“创建你的第一个应用（Create your first application now）”, 由于是免费账号，所以最多只能创建三个，不会我们只要创建一个就够了</p>
-<p><img src="/images/how-to-fuck-gfw/6.png" alt=""></p>
-<p>7 随便选一个即可，我选的是python2.7</p>
-<p><img src="/images/how-to-fuck-gfw/7.png" alt=""></p>
-<p>8 填一下public url</p>
-<p><img src="/images/how-to-fuck-gfw/8.png" alt=""></p>
-<p>9 Region就默认的us即可，点击创建</p>
-<p><img src="/images/how-to-fuck-gfw/9.png" alt=""></p>
-<p>10 询问是否需要部署代码，选择不是现在，继续即可。</p>
-<p><img src="/images/how-to-fuck-gfw/10.png" alt=""></p>
-<p>11 创建完毕后自动返回首页，点击设置（settings）添加公钥</p>
-<p><img src="/images/how-to-fuck-gfw/11.png" alt=""></p>
-<p>12 看一下本机的公钥，默认是在 ~/.ssh/id_rsa.pub文件中，如果该文件不存在，甚至 ~/.ssh 文件夹不存在，则在终端输入 ssh-keygen， 然后一路回车即可自动生成。</p>
-<p><img src="/images/how-to-fuck-gfw/12.png" alt=""></p>
-<p>13 把文件中的全部内容复制到下图蓝框中，然后点击保存（save）。</p>
-<p><img src="/images/how-to-fuck-gfw/13.png" alt=""></p>
-<p>14 成功后如下图，然后点击Settings边上的 Applications</p>
-<p><img src="/images/how-to-fuck-gfw/14.png" alt=""></p>
-<p>15 然后再点击刚创建的应用。</p>
-<p><img src="/images/how-to-fuck-gfw/15.png" alt=""></p>
-<p>16 点击右侧的“Want to log in to your applicantion?”,自动弹出下面的文字和ssh地址。复制该ssh地址</p>
-<p><img src="/images/how-to-fuck-gfw/16.png" alt=""></p>
-<p>17  在终端中输入：<code>ssh -CNg -D 7070 55eb31c87628e165a900012b@python-andycoder7.rhcloud.com -v</code></p>
-<pre><code><span class="keyword">C</span>表示压缩数据传输
-<span class="keyword">N</span>表示不执行脚本或命令
-g表示允许远程主机连接转发端口
-<span class="keyword">D</span>指定一个本机“动态”的应用程序转发端口，可以理解为本机监听的端口号
-v表示详细信息
-</code></pre><p><img src="/images/how-to-fuck-gfw/17.png" alt=""></p>
-<p>18 输入yes继续连接，看到如下log，表示正常启动</p>
-<p><img src="/images/how-to-fuck-gfw/18.png" alt=""></p>
-<h2 id="0x01_配置本地浏览器（以Firefox为例）">0x01 配置本地浏览器（以Firefox为例）</h2><p>1 打开Firefox，点击菜单，点击附加组件</p>
-<p><img src="/images/how-to-fuck-gfw/21.png" alt=""></p>
-<p>2 在搜索中输入 autoproxy，并安装如下组件</p>
-<p><img src="/images/how-to-fuck-gfw/22.png" alt=""></p>
-<p>3 安装完毕后要求重启浏览器，重启之。然后点击工具栏上“福”右侧的下拉按钮，点击首选项</p>
-<p><img src="/images/how-to-fuck-gfw/23.png" alt=""></p>
-<p>4 在弹出的对话框中点击“代理服务器”下的“编辑代理服务器”</p>
-<p><img src="/images/how-to-fuck-gfw/24.png" alt=""></p>
-<p>5 把第一行 Free Gate 中的 IP 设为运行ssh命令电脑的IP，在此处即为127.0.0.1，端口则填命令中 -D 参数后的那个端口号，在此处即为7070，后面选择 sock5，然后点击确定即可。</p>
-<p><img src="/images/how-to-fuck-gfw/25.png" alt=""></p>
-<p>6 把默认代理设置为 Free Gate</p>
-<p><img src="/images/how-to-fuck-gfw/26.png" alt=""></p>
-<p>7 为了测试方面，选用全局代理，然后在浏览器中输入 <a href="https://www.youtube.com/watch?v=G1F223YWtN8&amp;list=PL1xmVbigZck3XKBh5eejphxgF0Pe8U-UG" target="_blank" rel="external">https://www.youtube.com/watch?v=G1F223YWtN8&amp;list=PL1xmVbigZck3XKBh5eejphxgF0Pe8U-UG</a> （九评共产党）</p>
-<p><img src="/images/how-to-fuck-gfw/27.png" alt=""></p>
-<p>终端输出的log：</p>
-<p><img src="/images/how-to-fuck-gfw/28.png" alt=""></p>
-<h2 id="0x02_结语">0x02 结语</h2><p></p><p style="font-size:40px; text-align:center;">FUCK GFW</p><p></p>
-<p></p><p style="font-size:40px; text-align:center;">不自由 毋宁死</p><p></p>
-<p></p><p style="font-size:20px; text-align:center;">Thank you very much, OPENSHIFT.</p><p></p>
-<p></p><p style="font-size:14px; text-align:center;">如果大家都拿來滥用，肯定會遭到封殺。非开发者们，请远离OpenShift。</p><p></p>
+        <h2 id="0x00_背景">0x00 背景</h2><p>没啥，无聊想玩玩，有了mac总不能浪费吧，现在连真机调试都支持了，不用 xcode 写写 oc 实在是太对不起它了。</p>
+<h2 id="0x10_第一感觉和疑问">0x10 第一感觉和疑问</h2><blockquote>
+<p>OC/C/xcode/cocoa 的关系？</p>
+</blockquote>
+<p>OC 是 C 的扩展，语法有一定的变动，新增了很多的概念，是用于开发苹果家各种设备的语言；XCode 是一个 IDE，类似于 windows 的 visual studio; cocoa 是用于开发UI的一个框架。</p>
+<blockquote>
+<p>OC 和 C 类似的地方？</p>
+</blockquote>
+<ul>
+<li><p>OC 也用 .h 作为头文件，但是源文件的后缀为 .m (message 或者 method 的意思吧)。在 OC 里是 <code>#import &lt;&gt;</code> 而不是 <code>#include &lt;&gt;</code>, import 能保证头文件只被包含一次。</p>
+</li>
+<li><p>C 中的数据类型、表达式、运算符在 OC 中都支持，包括循环结构： for, while, do while, break, continue 分支结构： if, else, switch</p>
+</li>
+<li><p>NSLog()函数与printf()函数类似，用于在终端输出信息，但是添加了一些别的，例如同时会输出时间戳等</p>
+</li>
+</ul>
+<blockquote>
+<p>为什么 OC 中很多函数或者类型都是 NS 开头？</p>
+</blockquote>
+<a id="more"></a>
+<p>Cocoa 是从1980年代由 NeXT 开发的编程环境 NeXTSTEP 和 OPENSTEP 演变而来，所以其类别之名皆以 NS 前缀(代表NeXTSTEP)。</p>
+<blockquote>
+<p>经常会看到 <code>@&quot;a test string&quot;</code> 这种，这是什么？</p>
+</blockquote>
+<p>在字符串前面加上 @， 表示是 NSString 类型， 在 NSLog 函数中使用 <code>%@</code> 来表述输出 NSString 类型的数据， 就像用 <code>%d</code> 来表示输出整形一样。由于 NSLog 函数的参数需要是 NSString 类型，所以代码看如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例代码</span></span><br><span class="line">NSString *test = @<span class="string">"test"</span>;</span><br><span class="line">NSLog(@<span class="string">"test string: %@\n"</span>, test);</span><br><span class="line"><span class="comment">// 类似于 printf("test string: %@\n", test);</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 oc 中，id 是什么意思？</p>
+</blockquote>
+<p>类似于 c 中的 <code>void *</code> 表示任意类的对象</p>
+<h2 id="0x20_OC_中类、方法">0x20 OC 中类、方法</h2><h3 id="0x21_类的定义">0x21 类的定义</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@interface person : NSObject <span class="comment">// 为person类定义; NSObject 表示父类</span></span><br><span class="line"><span class="comment">// 似乎 oc 并不支持多继承 =.=</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 这里是成员变量</span></span><br><span class="line">    @<span class="keyword">public</span> <span class="comment">// 同样有public/protected/private/package四种</span></span><br><span class="line">        NSString * _name;</span><br><span class="line">        <span class="keyword">int</span> _age;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里是属性和方法</span></span><br><span class="line">@property (nonatomic,weak) NSString *temp; <span class="comment">// 这是属性</span></span><br><span class="line">- (<span class="keyword">void</span>) newPerson:(NSString *)<span class="function">name <span class="title">withAge</span><span class="params">(<span class="keyword">int</span>)</span>age <span class="comment">// 这是方法</span></span><br><span class="line"></span><br><span class="line">@end <span class="comment">// 接口定义结束</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>关于成员变量与属性的区别，请参照<a href="http://blog.csdn.net/huang2009303513/article/details/38445593" target="_blank" rel="external">这篇博文</a></p>
+</li>
+<li><p>关于属性中@property的各个属性值的含义，请参照<a href="http://blog.csdn.net/dqjyong/article/details/7668601" target="_blank" rel="external">这篇博文</a></p>
+</li>
+</ul>
+<h3 id="0x22_类的方法的定义">0x22 类的方法的定义</h3><p>形式大概是：<code>- (返回值类型) 方法名:(参数1类型)参数1 部分方法名2(参数2类型)参数2...</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分方法名可以省略，但不建议</span></span><br><span class="line">- (<span class="keyword">void</span>) newPerson:(NSString *)<span class="function">name <span class="title">withAge</span><span class="params">(<span class="keyword">int</span>)</span>age</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">//_name 和 _age 是类的成员变量，也可以通过self-&gt;_name的形式访问</span></span><br><span class="line">    _name = name;</span><br><span class="line">    _age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最开始的那个 <code>-</code> 其实也可以是 <code>+</code>, 它们的区别是，前者是类的实例的方法，后者是类的方法；也可以理解为前者需要类实例化之后才能用，而后者是 static 方法。</p>
+<h3 id="0x23_点语法">0x23 点语法</h3><p>oc 中的点语法不是访问成员变量，而是隐式的调用其get/set方法。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">        @autoreleasepool &#123;</span><br><span class="line">            person *p = [[person alloc] init];</span><br><span class="line">            [p newPerson:@<span class="string">"andy"</span> withAge:<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 这里是[]语法，用于方法调用的，等同于c++中的 p.newPerson("andy", 1);</span></span><br><span class="line">            p._age = <span class="number">2</span>; <span class="comment">// 这里会报错，因为没有定义局部变量 _age 的set方法</span></span><br><span class="line">            p.temp = @<span class="string">"hehe"</span>; <span class="comment">// 对于 property属性 编译器会自动对其添加get/set方法（如果没有自定义的话）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要自定义成员变量或者属性的 get/set 方法的话：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义成员变量 _age 的 get 方法</span></span><br><span class="line"><span class="comment">// 方法的返回值为变量的类型，方法名与变量同名</span></span><br><span class="line">- (<span class="keyword">int</span>) _age</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> _age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自定义属性 temp 的 set 方法</span></span><br><span class="line"><span class="comment">// 方法返回值为空，参数为属性类型，方法名为 set属性名，其中属性名首字母大写，</span></span><br><span class="line"><span class="comment">// 如果首字母为_或者已经是大写字母则不变化，例如：setTemp, set_age 等</span></span><br><span class="line">- (<span class="keyword">void</span>) setTemp:(NSString *)t</span><br><span class="line">&#123;</span><br><span class="line">    temp = t;</span><br><span class="line">    <span class="comment">// 不能写成： self.temp = t</span></span><br><span class="line">    <span class="comment">// 因为self.temp是调用temp的set方法，所以等同于 setTemp(t)，所以会出现死循环，不断递归下去，直到爆栈</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对属性和成员变量的自定义get/set方法规则是一样的，不同的是如果不自定义的话，编译器会自动帮属性生成get/set方法，但成员变量不会。</p>
+<h3 id="0x24_方括号语法">0x24 方括号语法</h3><p>oc 中的方括号用于给某个对象发送消息，通知它该做什么，个人理解类似于去调用其方法。似乎在 oc 中通知对象执行某种操作，成为发送消息（也叫调用方法）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">person *p = [[person alloc] init];</span><br><span class="line">[p newPerson:@<span class="string">"andy"</span> withAge:<span class="number">1</span>];</span><br><span class="line"><span class="comment">// 函数定义是：- (void) newPerson:(NSString *)name withAge(int)age</span></span><br><span class="line"><span class="comment">// 等同于c++中的 p.newPerson("andy", 1);</span></span><br></pre></td></tr></table></figure>
+<h3 id="0x25_类的实现">0x25 类的实现</h3><p>oc 中类的实现用 <code>@implementation</code> 关键字，结束一样用 <code>@end</code>，然后把 .h 中定义的各种方法都给出具体的实现代码就好了~</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import "person.h"</span></span><br><span class="line"></span><br><span class="line">@implementation person</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>) newPerson:(NSString *)temp withAge:(<span class="keyword">int</span>)age</span><br><span class="line">&#123;</span><br><span class="line">    self-&gt;_name = temp;</span><br><span class="line">    self-&gt;_age = age;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">int</span>) _age</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> _age;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>) set_age:(<span class="keyword">int</span>)age</span><br><span class="line">&#123;</span><br><span class="line">    self-&gt;_age = age;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="0x30_block">0x30 block</h2><p>oc 中 block 的概念类似于其他语言中的 lamda 表达式，用于实现匿名函数等，在用 AFnetworking 的时候第一次接触到，block 最大的特征是带有 ^， 我对 block 的了解来自以下几篇博文：</p>
+<ul>
+<li><a href="http://my.oschina.net/joanfen/blog/317644?fromerr=0QtSqBvw" target="_blank" rel="external">教你爱上Blocks</a> (讲了block的语法、省略句式和用法) 我主要看的就是这篇</li>
+<li><a href="http://www.zhihu.com/question/30779258" target="_blank" rel="external">OC中， block（块）的本质是什么？</a> (为什么在block不能给block外的局部变量赋值)</li>
+<li><a href="http://www.cnblogs.com/xinye/archive/2013/03/03/2941203.html" target="_blank" rel="external">Blocks学习笔记总结</a> (网友对《Blocks Progromming Gude》学习的笔记总结，和自己理解的互相印证一下)</li>
+</ul>
+<p>最后说一句。。其实贴链接而不是自己再讲一遍。。。只有一个原因。。那就是。。懒 =.=</p>
 
       
     </div>
@@ -241,9 +235,9 @@ v表示详细信息
       
         <div class="post-tags">
           
-            <a href="/tags/FUCK/"> #FUCK </a>
+            <a href="/tags/ios/"> #ios </a>
           
-            <a href="/tags/GFW/"> #GFW </a>
+            <a href="/tags/objective-c/"> #objective-c </a>
           
         </div>
       
@@ -252,13 +246,11 @@ v表示详细信息
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/15/install-mysql-5-1-73-from-source-on-Ubuntu-14-04/">install mysql 5.1.73 from source on Ubuntu 14.04</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/24/Git简介/">Git简介</a>
+              <a href="/2015/09/17/windows7上单独安装Apache-Mysql-PHP/">windows7上单独安装Apache+Mysql+PHP</a>
             
           </div>
         </div>
@@ -274,8 +266,8 @@ v表示详细信息
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/09/06/HOW-TO-FUCK-GFW/"
-               data-title="HOW TO FUCK GFW" data-url="http://andy-yao.me/2015/09/06/HOW-TO-FUCK-GFW/">
+          <div class="ds-thread" data-thread-key="2015/11/25/学习oc第一天/"
+               data-title="学习oc第一天" data-url="http://andy-yao.me/2015/11/25/学习oc第一天/">
           </div>
         
       </div>
@@ -367,7 +359,7 @@ v表示详细信息
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_搭建ssh代理服务"><span class="nav-number">1.</span> <span class="nav-text">0x00 搭建ssh代理服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01_配置本地浏览器（以Firefox为例）"><span class="nav-number">2.</span> <span class="nav-text">0x01 配置本地浏览器（以Firefox为例）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02_结语"><span class="nav-number">3.</span> <span class="nav-text">0x02 结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_第一感觉和疑问"><span class="nav-number">2.</span> <span class="nav-text">0x10 第一感觉和疑问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_OC_中类、方法"><span class="nav-number">3.</span> <span class="nav-text">0x20 OC 中类、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x21_类的定义"><span class="nav-number">3.1.</span> <span class="nav-text">0x21 类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x22_类的方法的定义"><span class="nav-number">3.2.</span> <span class="nav-text">0x22 类的方法的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x23_点语法"><span class="nav-number">3.3.</span> <span class="nav-text">0x23 点语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x24_方括号语法"><span class="nav-number">3.4.</span> <span class="nav-text">0x24 方括号语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x25_类的实现"><span class="nav-number">3.5.</span> <span class="nav-text">0x25 类的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x30_block"><span class="nav-number">4.</span> <span class="nav-text">0x30 block</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
