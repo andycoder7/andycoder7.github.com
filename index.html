@@ -130,6 +130,100 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/30/纯代码实现CollectionView/">
+                纯代码实现CollectionView
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-11-30
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/ios/">ios</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/11/30/纯代码实现CollectionView/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/30/纯代码实现CollectionView/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="0x00_背景">0x00 背景</h2><p>本来应该是继续学习oc第N天系列的，不过我这人的性子不行。。喜欢知道一点就开始干了。。所以后面的知识也就变得不好整理了。在这段时间了解了一下关于oc中委托的的知识。这个还是很必要的。  </p>
+<p>关于CollectionView没什么好多说的，简单粗暴的贴代码就好了</p>
+<h2 id="0x10_CollectionViewController-h">0x10 CollectionViewController.h</h2><blockquote>
+<p>CollectionViewController.h</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这里继承的是UIViewController，不需要是UICollectionViewController类 ^_^ 但是要实现下面三个委托：</span></span><br><span class="line"><span class="comment">//UICollectionViewDelegate:     主要负责UICollectionView被选中时调用的方法等</span></span><br><span class="line"><span class="comment">//UICollectionViewDataSource:   主要负责给出CollectionView中的内容，包括多少个section/cell，以及每个cell中的内容</span></span><br><span class="line"><span class="comment">//UICollectionViewDelegateFlowLayout: 定义每个cell的大小，边框间距等</span></span><br><span class="line">@interface CollectionViewController : UIViewController&lt;UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/30/纯代码实现CollectionView/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/"> #ios </a>
+          
+            <a href="/tags/objective-c/"> #objective-c </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/25/学习oc第一天/">
                 学习oc第一天
               </a>
@@ -924,7 +1018,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

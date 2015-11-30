@@ -20,7 +20,7 @@
 
 
 
-  <meta name="keywords" content="Apache,Mysql,PHP,windows," />
+  <meta name="keywords" content="ios,objective-c," />
 
 
 
@@ -41,7 +41,7 @@
   </script>
 
 
-  <title> windows7上单独安装Apache+Mysql+PHP // Andy's World </title>
+  <title> 纯代码实现CollectionView // Andy's World </title>
 </head>
 
 <body>
@@ -128,7 +128,7 @@
           
           
             
-              windows7上单独安装Apache+Mysql+PHP
+              纯代码实现CollectionView
             
           
         </h1>
@@ -136,14 +136,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-09-17
+          发表于 2015-11-30
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/琐碎/">琐碎</a>
+              <a href="/categories/ios/">ios</a>
 
               
               
@@ -156,8 +156,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/17/windows7上单独安装Apache-Mysql-PHP/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/17/windows7上单独安装Apache-Mysql-PHP/"></span>
+            <a href="/2015/11/30/纯代码实现CollectionView/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/30/纯代码实现CollectionView/"></span>
             </a>
           </span>
           
@@ -171,94 +171,23 @@
       
 
       
-        <h2 id="版本说明：">版本说明：</h2><ol>
-<li>windows7 74bit</li>
-<li>Apache 2.4.12</li>
-<li>Mysql 5.6.26</li>
-<li>PHP 5.6.12</li>
-</ol>
-<h2 id="APACHE">APACHE</h2><ul>
-<li>unrar x <a href="/uploads/install_amp_on_win/Apache_HTTP_Server_2.4.12.rar">Apache_HTTP_Server_2.4.12.rar</a>  </li>
-<li>cp -r Apache\ HTTP\ Server\ /x64 apache_2_4_12</li>
-<li>vi apache_2_4_12/conf/httpd.conf<ul>
-<li>modify the SRVROOT as your apache dir, not web dir</li>
-<li>modify the DocumentRoot as your web dir</li>
-</ul>
-</li>
-<li>vi apache_2_4_12/conf/extra/httpd-vhosts.conf<ul>
-<li>modify the DocumentRoot as your web dir</li>
-</ul>
-</li>
-<li>double click apache_2_4_12/bin/ApacheMonitor.exe and start apache</li>
-</ul>
+        <h2 id="0x00_背景">0x00 背景</h2><p>本来应该是继续学习oc第N天系列的，不过我这人的性子不行。。喜欢知道一点就开始干了。。所以后面的知识也就变得不好整理了。在这段时间了解了一下关于oc中委托的的知识。这个还是很必要的。  </p>
+<p>关于CollectionView没什么好多说的，简单粗暴的贴代码就好了</p>
+<h2 id="0x10_CollectionViewController-h">0x10 CollectionViewController.h</h2><blockquote>
+<p>CollectionViewController.h</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这里继承的是UIViewController，不需要是UICollectionViewController类 ^_^ 但是要实现下面三个委托：</span></span><br><span class="line"><span class="comment">//UICollectionViewDelegate:     主要负责UICollectionView被选中时调用的方法等</span></span><br><span class="line"><span class="comment">//UICollectionViewDataSource:   主要负责给出CollectionView中的内容，包括多少个section/cell，以及每个cell中的内容</span></span><br><span class="line"><span class="comment">//UICollectionViewDelegateFlowLayout: 定义每个cell的大小，边框间距等</span></span><br><span class="line">@interface CollectionViewController : UIViewController&lt;UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="PHP">PHP</h2><ul>
-<li>unzip <a href="/uploads/install_amp_on_win/php-5.6.12-Win32-VC11-x64.zip">php-5.6.12-Win32-VC11-x64.zip</a></li>
-<li>double click the <a href="/uploads/install_amp_on_win/vcredist_x64.exe">vcredist_x64.exe</a> to install msvcr110.dll</li>
-<li><p>vi apache_2_4_12/conf/httpd.conf</p>
-<ul>
-<li><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#add</span> php module</span><br><span class="line">LoadModule php5_module <span class="string">"c:/software/php_5_6_12/php5apache2_4.dll"</span></span><br><span class="line">PHPIniDir <span class="string">"c:/software/php_5_6_12"</span></span><br><span class="line">AddType application/x-httpd-php <span class="class">.php</span> <span class="class">.html</span> .htm</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>restart the apache server</p>
-</li>
-<li>add c:/software/php_5_6_12 into PATH</li>
-</ul>
-<h2 id="MYSQL">MYSQL</h2><ul>
-<li>unzip <a href="">mysql-5.6.26-win64.zip</a></li>
-<li>mv mysql-5.6.26-win64 mysql_5_6_26</li>
-<li>cd mysql_5_6_26</li>
-<li>cp my-default.ini my.ini</li>
-<li><p>vi my.ini</p>
-<ul>
-<li><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">basedir = <span class="string">c:</span><span class="regexp">/software/</span>mysql_5_6_26</span><br><span class="line">datadir = <span class="string">c:</span><span class="regexp">/software/</span>mysql_5_6_26/data</span><br><span class="line">innodb_data_home_dir = <span class="string">c:</span><span class="regexp">/software/</span>mysql_5_6_26/data</span><br><span class="line">port = <span class="number">3306</span></span><br><span class="line">character_set_server = utf8</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>add c:/software/mysql_5_6_26/bin into PATH</p>
-</li>
-<li>cmd(need root)&gt; <code>mysqld --install mysql --defaults-file=&quot;c:\software\mysql_5_6_26\my.ini&quot;</code><ul>
-<li>if the path about mysql service in services.msc is wrong. you can goto regedit to modefy the <code>\HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\services\mysql\ImagePath</code></li>
-</ul>
-</li>
-<li>cmd(need root)&gt; <code>net start|stop mysql</code><ul>
-<li>if there is a problem about 1067, you can find the err log in c:\software\mysql_5_6_26\data\charles-PC.err and if the err is can’t open the ibdata1 with read&amp;write.<ul>
-<li>you can stop the mysql and rm the ib_logfile0 and ib_logfile1 which in the same path with ibdata1</li>
-<li>cmd(need root)&gt; <code>mysqladmin -u root shutdown # stop mysql</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>cmd(need root)&gt; <code>mysqld --remove # remove mysql service in services.msc</code></li>
-</ul>
-<h2 id="PHP-MYSQL">PHP-MYSQL</h2><ul>
-<li>cp php.ini-development php.ini</li>
-<li>vi php.ini<ul>
-<li><code>extension_dir=&quot;c:/software/php_5_6_12/ext&quot;</code></li>
-<li>remove the “;” before extension=php_gd2.dll and extension=php_mysql.dll</li>
-</ul>
-</li>
-</ul>
-<p>PS: don’t need to cp libmysql.dll or php-mysql.dll … to c:\windows\system32.<br>these dll can be found by extension_dir and apache can find the php.ini by PHPIniDir  </p>
-<h2 id="SSL">SSL</h2><ul>
-<li>download the CA cert file from <a href="http://curl.haxx.se/docs/caextract.html" target="_blank" rel="external">http://curl.haxx.se/docs/caextract.html</a></li>
-<li>mv cacert.pem c:\software\cacert.pem</li>
-<li>vi php.ini<ul>
-<li>remove the “;” before extension=php_openssl.dll</li>
-<li><code>openssl.cafile=c:\software\cacert.pem</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="rewrite">rewrite</h2><ul>
-<li>remove “#” before LoadModule rewrite_module modules/mod_rewrite.so</li>
-</ul>
-<h2 id="我的配置文件">我的配置文件</h2><ul>
-<li><a href="/uploads/install_amp_on_win/httpd.conf">httpd.conf</a></li>
-<li><a href="/uploads/install_amp_on_win/php.ini">php.ini</a></li>
-<li><a href="/uploads/install_amp_on_win/my.ini">my.ini</a></li>
-</ul>
-<p><strong><em> PS: all path in this article is just an example </em></strong></p>
+<h2 id="0x20_CollectionViewController-m">0x20 CollectionViewController.m</h2><blockquote>
+<p>CollectionViewController.m</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import "CollectionViewController.h"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="function">interface <span class="title">CollectionViewController</span> <span class="params">()</span></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation CollectionViewController</span><br><span class="line"></span><br><span class="line">- <span class="params">(<span class="keyword">void</span>)</span>viewDidLoad </span>&#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</span><br><span class="line">    [super didReceiveMemoryWarning];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> mark &lt;UICollectionViewDataSource&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义collectionView中Section的个数</span></span><br><span class="line">- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每个Section中Cell的个数</span></span><br><span class="line">- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义cell的相关属性（背景颜色等），并在cell中按需添加控件（label/button等）</span></span><br><span class="line">- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> NSString * CellIdentifier = @<span class="string">"CollectionViewCell"</span>;</span><br><span class="line">    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置cell的背景颜色</span></span><br><span class="line">    cell.backgroundColor = [UIColor whiteColor];</span><br><span class="line">    <span class="comment">//在cell中添加控件，在这里只是简单的添加了一个label</span></span><br><span class="line">    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">0</span>, <span class="number">80</span>, <span class="number">80</span>)];</span><br><span class="line">    cellLabel.text = [NSString stringWithFormat:@<span class="string">"%ld"</span>,(<span class="keyword">long</span>)indexPath.row];</span><br><span class="line">    [cellLabel setTextColor:[UIColor blackColor]];</span><br><span class="line">    [cellLabel setBackgroundColor:[UIColor lightGrayColor]];</span><br><span class="line">    <span class="comment">//清除cell中所有的原有控件</span></span><br><span class="line">    <span class="keyword">for</span> (id subView in cell.contentView.subviews) &#123;</span><br><span class="line">        [subView removeFromSuperview];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//添加刚刚定义的控件</span></span><br><span class="line">    [cell.contentView addSubview:cellLabel];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> mark &lt;UICollectionViewDelegateFlowLayout&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每个Item 的大小</span></span><br><span class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line">    <span class="keyword">return</span> CGSizeMake(<span class="number">75</span>, <span class="number">80</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每个UICollectionView 的 margin</span></span><br><span class="line">-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section &#123;</span><br><span class="line">    <span class="comment">//分别是上下左右的间距</span></span><br><span class="line">    <span class="keyword">return</span> UIEdgeInsetsMake(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> mark &lt;UICollectionViewDelegate&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义cell被选中时执行的操作（被touch的时候）</span></span><br><span class="line">- (<span class="keyword">void</span>)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath &#123;</span><br><span class="line">    NSLog(@<span class="string">"让我的cell变黄！！"</span>);</span><br><span class="line">    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];</span><br><span class="line">    <span class="keyword">for</span> (id subview in cell.contentView.subviews) &#123;</span><br><span class="line">        [subview setBackgroundColor:[UIColor yellowColor]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义cell解除选中时执行的操作（其他cell被touch的时候，并不是touch松开的时候！！）</span></span><br><span class="line">- (<span class="keyword">void</span>)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath &#123;</span><br><span class="line">    NSLog(@<span class="string">"让我的cell变回来！！"</span>);</span><br><span class="line">    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];</span><br><span class="line">    <span class="keyword">for</span> (id subview in cell.contentView.subviews) &#123;</span><br><span class="line">        <span class="comment">//我这里偷懒的把所有子控件都设为灰色。。但实际情况。。可能一个cell中有多个子控件，并且背景颜色各不相同</span></span><br><span class="line">        [subview setBackgroundColor:[UIColor lightGrayColor]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="0x30_在view中添加collectionView">0x30 在view中添加collectionView</h2><p>我是在一个tableView中嵌入的CollectionView，在其他地方用CollectionView也是类似的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">UIView *view = [[UIView alloc]init];</span><br><span class="line">view.backgroundColor = [UIColor whiteColor];</span><br><span class="line"><span class="comment">//初始化collectionView的控制类，所有相关的代理方法都在该类中进行了实现</span></span><br><span class="line"><span class="comment">//cvc: @property (nonatomic, strong)CollectionViewController *cvc;</span></span><br><span class="line"><span class="comment">//cvc不能是局部变量，需要是类的属性之类的，否则在本方法结束后，cvc就会被释放掉，collectionView需要的一些委托也找不到对应的实现了</span></span><br><span class="line">self.cvc = [[CollectionViewController alloc] init];</span><br><span class="line"></span><br><span class="line">UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc]init];</span><br><span class="line"><span class="comment">//设置滚动方式为垂直滚动（这个设置可要可不要）</span></span><br><span class="line">[flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];</span><br><span class="line"><span class="comment">//初始化了collectionView类，定义了该view的大小，具体view中的内容在UICollectionViewDataSource的委托函数中实现</span></span><br><span class="line">UICollectionView *ucv  =[[UICollectionView alloc]initWithFrame:CGRectMake(<span class="number">10</span>, <span class="number">0</span>, self.view.frame.size.width-<span class="number">20</span>, <span class="number">80</span>) collectionViewLayout:flowLayout];</span><br><span class="line"><span class="comment">//相关属性设置</span></span><br><span class="line">[ucv setBackgroundColor:[UIColor whiteColor]];</span><br><span class="line"><span class="comment">//设置其委托和数据源的对象</span></span><br><span class="line"><span class="comment">//委托用来定义collectionView上的一些事件如何处理等</span></span><br><span class="line">ucv.delegate = self.cvc;</span><br><span class="line"><span class="comment">//数据源用来定义collectionView中的内容</span></span><br><span class="line">ucv.dataSource = self.cvc;</span><br><span class="line"><span class="comment">//注册Cell，必须要有，否则会抛出'NSInternalInconsistencyException'异常, 原因: 'could not dequeue a view of kind: </span></span><br><span class="line"><span class="comment">//UICollectionElementKindCell with identifier UICollectionViewCell - must register a nib or a class for the identifier</span></span><br><span class="line"><span class="comment">//or connect a prototype cell in a storyboard'（其实我一点都看不懂这个原因。。=_=||）</span></span><br><span class="line"><span class="comment">//forCellWithReuseIdentifier的值一定要与CollectionViewController类中定义的identifier相同</span></span><br><span class="line">[ucv registerClass:[UICollectionViewCell <span class="keyword">class</span>] forCellWithReuseIdentifier:@<span class="string">"CollectionViewCell"</span>];</span><br><span class="line"></span><br><span class="line">[view addSubview:ucv];</span><br></pre></td></tr></table></figure>
+<h2 id="0x40_总结">0x40 总结</h2><p>最喜欢贴代码的博客了。。写的再清楚还是没有代码清楚，自己领悟吧~ </p>
+<h2 id="0x50_参考文献">0x50 参考文献</h2><ol>
+<li><a href="http://blog.csdn.net/u011439689/article/details/39551163?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">UICollectionView的使用方法及demo</a></li>
+</ol>
 
       
     </div>
@@ -267,13 +196,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Apache/"> #Apache </a>
+            <a href="/tags/ios/"> #ios </a>
           
-            <a href="/tags/Mysql/"> #Mysql </a>
-          
-            <a href="/tags/PHP/"> #PHP </a>
-          
-            <a href="/tags/windows/"> #windows </a>
+            <a href="/tags/objective-c/"> #objective-c </a>
           
         </div>
       
@@ -282,13 +207,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/25/学习oc第一天/">学习oc第一天</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/15/install-mysql-5-1-73-from-source-on-Ubuntu-14-04/">install mysql 5.1.73 from source on Ubuntu 14.04</a>
+              <a href="/2015/11/25/学习oc第一天/">学习oc第一天</a>
             
           </div>
         </div>
@@ -304,8 +227,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/09/17/windows7上单独安装Apache-Mysql-PHP/"
-               data-title="windows7上单独安装Apache+Mysql+PHP" data-url="http://andy-yao.me/2015/09/17/windows7上单独安装Apache-Mysql-PHP/">
+          <div class="ds-thread" data-thread-key="2015/11/30/纯代码实现CollectionView/"
+               data-title="纯代码实现CollectionView" data-url="http://andy-yao.me/2015/11/30/纯代码实现CollectionView/">
           </div>
         
       </div>
@@ -397,7 +320,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本说明："><span class="nav-number">1.</span> <span class="nav-text">版本说明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APACHE"><span class="nav-number">2.</span> <span class="nav-text">APACHE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP"><span class="nav-number">3.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MYSQL"><span class="nav-number">4.</span> <span class="nav-text">MYSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-MYSQL"><span class="nav-number">5.</span> <span class="nav-text">PHP-MYSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL"><span class="nav-number">6.</span> <span class="nav-text">SSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewrite"><span class="nav-number">7.</span> <span class="nav-text">rewrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我的配置文件"><span class="nav-number">8.</span> <span class="nav-text">我的配置文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_CollectionViewController-h"><span class="nav-number">2.</span> <span class="nav-text">0x10 CollectionViewController.h</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_CollectionViewController-m"><span class="nav-number">3.</span> <span class="nav-text">0x20 CollectionViewController.m</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x30_在view中添加collectionView"><span class="nav-number">4.</span> <span class="nav-text">0x30 在view中添加collectionView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x40_总结"><span class="nav-number">5.</span> <span class="nav-text">0x40 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x50_参考文献"><span class="nav-number">6.</span> <span class="nav-text">0x50 参考文献</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
