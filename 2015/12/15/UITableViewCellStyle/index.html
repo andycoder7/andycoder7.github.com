@@ -20,7 +20,7 @@
 
 
 
-  <meta name="keywords" content="Git,Shell," />
+  <meta name="keywords" content="ios,objective-c," />
 
 
 
@@ -41,7 +41,7 @@
   </script>
 
 
-  <title> Shell 提示符中添加 git branch 信息 // Andy's World </title>
+  <title> UITableViewCellStyle // Andy's World </title>
 </head>
 
 <body>
@@ -128,7 +128,7 @@
           
           
             
-              Shell 提示符中添加 git branch 信息
+              UITableViewCellStyle
             
           
         </h1>
@@ -136,14 +136,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-05-11
+          发表于 2015-12-15
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/琐碎/">琐碎</a>
+              <a href="/categories/ios/">ios</a>
 
               
               
@@ -156,8 +156,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/11/add-git-branch-info/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/11/add-git-branch-info/"></span>
+            <a href="/2015/12/15/UITableViewCellStyle/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/UITableViewCellStyle/"></span>
             </a>
           </span>
           
@@ -171,60 +171,21 @@
       
 
       
-        <h2 id="0x00_背景">0x00 背景</h2><p>github 墙虽然没有刷起来, 但是 git 在项目中用到的还是挺多的, 经常需要在各个分支之间切换, 万一搞错分支真是会呵呵的. 这时候就想, 如果在 shell 的提示符上能实时显示出所在分支, 那该有多好. 事实证明, 有这种想法的 coder 绝对不止我一个…</p>
-<h3 id="0x01_实现方法">0x01 实现方法</h3><p>就我现在的了解, 要实现这个需求主要有两种方法:</p>
-<ul>
-<li>bash + 修改 .bashrc + 修改 PS1</li>
-<li>zsh + oh-my-zsh</li>
-</ul>
+        <h2 id="0x00_版本">0x00 版本</h2><ol>
+<li>Xcode 7.2</li>
+<li>OS X 10.11.1</li>
+<li>Simulator 9.2</li>
+<li>Simulator iphone6s</li>
+<li>IOS 9.2</li>
+</ol>
+<h2 id="0x10_UITableView">0x10 UITableView</h2><p>要加载添加一个UITableView，首先需要 alloc 一个 UITableView，可以是直接一个 UITableView 的对象，也可以是 UITableViewController 对象的属性</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UITableView *tv = [[UITableView alloc] initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">20</span>, self.view.frame.size.width, self.view.frame.size.height)];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者 </span></span><br><span class="line">UITableViewController *tvc = [[UITableViewController alloc]init];</span><br><span class="line">tvc.tableView = [[UITableView alloc]initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">20</span>, self.view.frame.size.width, self.view.frame.size.height)];</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="0x10_Bash">0x10 Bash</h2><p>很多 linux 系统默认的 Shell 就是 Bash, 可以通过<code>cat /etc/shells</code>来查看本机装了哪些 shell, 然后通过<code>echo $SHELL</code>来查看自己目前使用的那个 Shell.</p>
-<p>一般来说, 要在 Bash 的提示符中自定义信息的话, 只要修改 PS1 这个变量即可. 在 man page 里, PS1 的定义是:</p>
-<blockquote>
-<p>PS1    The value of this parameter is expanded (see PROMPTING below) and used as the primary prompt string.  The default value is “\s-\v\$” .</p>
-</blockquote>
-<p>大意是: PS1 这个参数的值是可扩展的( 具体的扩展说明参见下文对 PROMPTING 的说明), 并且是提示符的主要字符串. 其默认值是: <code>&quot;\s-\v\$&quot;</code>. </p>
-<p>说到这里, 估计大部分童鞋都和我一样…甚么鬼…甚么是叫可扩展的? 怎么扩展? PROMTING 是甚么? 提示符的主要字符串还好理解, 就是提示符那串东西的主要组成部分么, 但是那个默认值是甚么意思?</p>
-<h3 id="0x11_expanded">0x11 expanded</h3><p>所谓可扩展的, 我个人理解是指可以被再次解析的, 也就是说, 这个字符串里有一些特定字符代表着别的意思, 就好像 C 语言里面的 printf 函数一样, 虽然我们在参数里面填的是” num is %d\n “, 但是其中<code>%d</code>和<code>\n</code> 都会被再次解析, 转换成数字和换行符. 在这里也是一样的, <code>\s</code> 表示 shell 的 name, <code>\v</code> 表示 bash 的版本, <code>\$</code> 就是$, 所以按照默认值的话, 你看到的提示符应该是这样的:</p>
-<blockquote>
-<p>bash-4.3$</p>
-</blockquote>
-<p>但是我们的 shell 提示符在装系统的时候就已经被配置过了, 所以你看到已经不是原始的提示符了.</p>
-<p>在系统中, 除了<code>\s</code>, <code>\v</code>之外, 系统还提供了很多的特定字符, 在 man page 中有一一说明:</p>
-<p><img src="/images/add-git-branch-info/man-page.png" alt=""></p>
-<p>其中, 常用的一下有:</p>
-<blockquote>
-<p>\d ：代表日期，格式为weekday month date，例如：”Mon Aug 1”<br>\H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux<br>\h ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略<br>\t ：显示时间为24小时格式，如：HH：MM：SS<br>\T ：显示时间为12小时格式<br>\A ：显示时间为24小时格式：HH：MM<br>\u ：当前用户的账号名称<br>\v ：BASH的版本信息<br>\w ：完整的工作目录名称。家目录会以 ~代替<br>\W ：利用basename取得工作目录名称，所以只会列出最后一个目录<br># ：下达的第几个命令<br>\$ ：提示字符，如果是root时，提示符为：# ，普通用户则为：$</p>
-</blockquote>
-<p>对照上面, 我们也不难看书一般系统默认的提示符格式为: <code>\u@\h:\w\$</code>, 效果则是: </p>
-<blockquote>
-<p>andy@andy-VirtualBox:~$</p>
-</blockquote>
-<h3 id="0x12_添加_git_branch_信息">0x12 添加 git branch 信息</h3><p>首先我们来看一下添加了 git branch 信息之后的效果:</p>
-<p><img src="/images/add-git-branch-info/bash.png" alt=""></p>
-<p>所以我们现在还欠缺的只是 git branch 的名字和颜色了. 那么 git branch 的信息如何获取呢? 这个只要查询当前目录下的 .git 分支信息即可. 网上有很多时间方式, 用的最多的应该是这种:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Parses out the branch name from .git/HEAD:</span></span><br><span class="line"><span class="function"><span class="title">find_git_branch</span></span> () &#123;</span><br><span class="line">    <span class="built_in">local</span> dir=. head</span><br><span class="line">    until [ <span class="string">"<span class="variable">$dir</span>"</span> -ef / ]; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span> ]; <span class="keyword">then</span></span><br><span class="line">            head=$(&lt; <span class="string">"<span class="variable">$dir</span>/.git/HEAD"</span>)</span><br><span class="line">                <span class="keyword">if</span> [[ <span class="variable">$head</span> = ref:\ refs/heads/* ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(<span class="variable">$&#123;head#*/*/&#125;</span>)"</span></span><br><span class="line">                <span class="keyword">elif</span> [[ <span class="variable">$head</span> != <span class="string">''</span> ]]; <span class="keyword">then</span></span><br><span class="line">                    git_branch=<span class="string">"(detached)"</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    git_branch=<span class="string">"(unknow)"</span></span><br><span class="line">                <span class="keyword">fi</span></span><br><span class="line">            <span class="built_in">return</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        dir=<span class="string">"../<span class="variable">$dir</span>"</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    git_branch=<span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后把这个函数添加到 PROMPT_COMMAND 中, 保证 bash 在创建提示符之前先执行该函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT_COMMAND=<span class="string">"find_git_branch; <span class="variable">$PROMPT_COMMAND</span>"</span></span><br></pre></td></tr></table></figure>
-<p>最后就是修改 PS1 变量, 把获取到的 git branch 信息添加到进去即可:</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\$</span>git_branch<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
-<p>BTW, 以上这些代码全都是添加到<code>~/.bashrc</code>文件的最后即可, 至于为什么添加到这个文件, 不在本文讨论范围内.</p>
-<h3 id="0x13_添加颜色">0x13 添加颜色</h3><p>到上面一小节结束的时候, 我们发现现在已经可以获取到 git branch 的信息了, 哪怕当前目录没有 .git 文件夹, 脚本也会自动的上级目录查找. 但是问题来了, 现在的整行提示符都是一个颜色的, 好难看, 于是我们就在想怎么才能给 git branch 信息加上颜色呢?</p>
-<p>在 PS1 变量里设置颜色, 我们可以用以下格式实现:</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">e</span>[F;Bm 要改变颜色的部分 \<span class="keyword">e</span>[<span class="literal">m</span></span><br></pre></td></tr></table></figure>
-<p>其中 F 表示前景色, B 表示背景色或者代码, 当同时希望有背景色和特殊代码时, 已以<code>\e[F;B;Cm</code> 的形式, 其中 C 为代码 </p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">前景 背景  颜色</span><br><span class="line">---------------------------------------</span></span><br><span class="line"><span class="code"> 30   40   黑色</span></span><br><span class="line"><span class="code"> 31   41   紅色</span></span><br><span class="line"><span class="code"> 32   42   綠色</span></span><br><span class="line"><span class="code"> 33   43   黃色</span></span><br><span class="line"><span class="code"> 34   44   藍色</span></span><br><span class="line"><span class="code"> 35   45   紫紅色</span></span><br><span class="line"><span class="code"> 36   46   青藍色</span></span><br><span class="line"><span class="code"> 37   47   白色</span></span><br><span class="line"></span><br><span class="line"><span class="code"> 代码 意义</span></span><br><span class="line"><span class="code"> -------------------------</span></span><br><span class="line"><span class="code"> 0 OFF</span></span><br><span class="line"><span class="code"> 1 高亮显示</span></span><br><span class="line"><span class="code"> 4 underline</span></span><br><span class="line"><span class="code"> 5 闪烁</span></span><br><span class="line"><span class="code"> 7 反白显示</span></span><br><span class="line"><span class="code"> 8 不可见</span></span><br></pre></td></tr></table></figure>
-<p>所以, 最终, 我们的 PS1 变为:</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS1="<span class="command">\u</span>@<span class="command">\h</span>:<span class="command">\w</span><span class="command">\e</span><span class="special">[</span>33;1m<span class="command">\$</span>git_branch<span class="command">\e</span><span class="special">[</span>m<span class="command">\$</span> "</span><br></pre></td></tr></table></figure>
-<h2 id="0x20_ZSH">0x20 ZSH</h2><p>ZSH 和 bash 一样, 也是一种 shell, 有传言说: zsh: The last shell you’ll ever need! Z 是最后一个字母, 所以它是终极的 shell. zsh 相比于 bash 有很多的优化和改进, 但是由于 zsh 的配置较为复杂, 所以一种通用的做法是用 zsh + oh-my-zsh</p>
-<p>oh-my-zsh 可以帮你很方便的配置 zsh, github 地址是: <a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh</a></p>
-<p>安装非常简单, 首先安装必要的组件: </p>
-<p><code>sudo apt-get install git wget zsh</code></p>
-<p>然后自动获取并安装 zsh:</p>
-<p><code>wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh</code></p>
-<p>然后把默认的 shell 替换为 zsh:</p>
-<p><code>chsh -s /bin/zsh</code></p>
-<p>搞定, 用了 zsh 之后你就会发现, git branch 信息甚么的已经可以在提示符里看到了.</p>
+<p>然后指定其 delegate 和 dataSource，前者负责事件的响应，后者负责样式的描述。当然，被指定的对象一定要实现<code>&lt;UITableViewDataSource,UITableViewDataSource&gt;</code>协议</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function">interface <span class="title">TableViewController</span> <span class="params">()</span>&lt;UITableViewDataSource,UITableViewDataSource&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation TableViewController</span><br><span class="line"></span><br><span class="line">- <span class="params">(<span class="keyword">void</span>)</span>viewDidLoad </span>&#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</span><br><span class="line">    [super didReceiveMemoryWarning];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> mark - Table view data source</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个tableView中有多少个section</span></span><br><span class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每一个section中有多少row，可以通过对参数section的判定返回不同的值</span></span><br><span class="line">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每个row中cell的内容</span></span><br><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line">    <span class="comment">//用于资源reuse的标示符，必须要有，具体自行google</span></span><br><span class="line">    <span class="keyword">static</span> NSString *cellIdentifier = @<span class="string">"cellIdentifier"</span>;</span><br><span class="line">    <span class="comment">//初始化cell</span></span><br><span class="line">    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cell == nil) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (indexPath.section) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="comment">//默认style，没有子标题</span></span><br><span class="line">                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];</span><br><span class="line">                cell.textLabel.text = @<span class="string">"标题"</span>;</span><br><span class="line">                cell.detailTextLabel.text = @<span class="string">"子标题"</span>;</span><br><span class="line">                <span class="comment">//右侧的附加类别显示为：箭头</span></span><br><span class="line">                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="comment">//有子标题的style</span></span><br><span class="line">                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];</span><br><span class="line">                cell.textLabel.text =@<span class="string">"标题"</span>;</span><br><span class="line">                cell.detailTextLabel.text = @<span class="string">"子标题"</span>;</span><br><span class="line">                <span class="comment">//右侧的附加类别显示为：显示细节的按钮</span></span><br><span class="line">                cell.accessoryType = UITableViewCellAccessoryDetailButton;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="comment">//styleValue1 子标题在右侧</span></span><br><span class="line">                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];</span><br><span class="line">                cell.textLabel.text =@<span class="string">"标题"</span>;</span><br><span class="line">                cell.detailTextLabel.text = @<span class="string">"子标题"</span>;</span><br><span class="line">                <span class="comment">//右侧的附加类别显示为：细节按钮+箭头</span></span><br><span class="line">                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="comment">//styleValue2 没有图片,子标题靠在标题右侧</span></span><br><span class="line">                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellIdentifier];</span><br><span class="line">                cell.textLabel.text =@<span class="string">"标题"</span>;</span><br><span class="line">                cell.detailTextLabel.text = @<span class="string">"子标题"</span>;</span><br><span class="line">                <span class="comment">//右侧的附加类别显示为：勾选</span></span><br><span class="line">                cell.accessoryType = UITableViewCellAccessoryCheckmark;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:&#123;</span><br><span class="line">                       <span class="comment">//不设置style的话默认使用default Style，可以通过对cell addsubview 来自定义cell的内容</span></span><br><span class="line">                       cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">0</span>, self.view.frame.size.width, <span class="number">35</span>)];</span><br><span class="line">                       UILabel *cellTitle = [[UILabel alloc]initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">0</span>, self.view.frame.size.width, <span class="number">35</span>)];</span><br><span class="line">                       [cellTitle setTextAlignment:NSTextAlignmentCenter];</span><br><span class="line">                       cellTitle.text = @<span class="string">"标题"</span>;</span><br><span class="line">                       [cell addSubview:cellTitle];</span><br><span class="line">                       <span class="comment">//右侧的附加类别也可以是一个自定义的view</span></span><br><span class="line">                       cell.accessoryView = [[UISwitch alloc]init];</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                       <span class="comment">//由于oc中不支持在case中申明变量，所以需要加这对大括号，如果要去掉的话，只要把cellTitle的申明放在外面就好了</span></span><br><span class="line">                   &#125;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//对所有的cell添加图片</span></span><br><span class="line">    cell.imageView.image = [UIImage imageNamed:@<span class="string">"tableViewCellImage.png"</span>];</span><br><span class="line">    <span class="comment">//对所有的cell的边框宽度设为1，方便看到边框的形状</span></span><br><span class="line">    cell.layer.borderWidth = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//对边框的颜色进行设定</span></span><br><span class="line">    [cell.layer setBorderColor:[UIColor lightGrayColor].CGColor];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义每个row的高度</span></span><br><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">35</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义每个section上方空白区域的高度</span></span><br><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">40</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义每个section上方空白区域的内容</span></span><br><span class="line">- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section &#123;</span><br><span class="line">    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">0</span>, <span class="number">375</span>, <span class="number">40</span>)];</span><br><span class="line">    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">20</span>, <span class="number">375</span>, <span class="number">20</span>)];</span><br><span class="line">    [label setTextColor:[UIColor redColor]];</span><br><span class="line">    [label setTextAlignment:NSTextAlignmentCenter];</span><br><span class="line">    <span class="keyword">switch</span> (section) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            label.text = @<span class="string">"UITableViewCellStyleDefault"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            label.text = @<span class="string">"UITableViewCellStyleSubtitle"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            label.text = @<span class="string">"UITableViewCellStyleValue1"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            label.text = @<span class="string">"UITableViewCellStyleValue2"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            label.text = @<span class="string">"自定义的view"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    [view addSubview:label];</span><br><span class="line">    <span class="keyword">return</span> view;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>效果如图：</p>
+<p><img src="/images/uitableviewcellstyle/UITableViewCellStyle.png" alt="UITableViewCellStyle"></p>
+<p>示例的代码:<a href="https://github.com/andycoder7/IOStest/tree/master/testUITableView" target="_blank" rel="external">https://github.com/andycoder7/IOStest/tree/master/testUITableView</a></p>
 
       
     </div>
@@ -233,9 +194,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/"> #Git </a>
+            <a href="/tags/ios/"> #ios </a>
           
-            <a href="/tags/Shell/"> #Shell </a>
+            <a href="/tags/objective-c/"> #objective-c </a>
           
         </div>
       
@@ -244,13 +205,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/21/sha512的算法与实现/">SHA-512的算法与实现</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/06/blog-with-hexo/">用 HEXO 搭建个人博客</a>
+              <a href="/2015/11/30/纯代码实现CollectionView/">纯代码实现CollectionView</a>
             
           </div>
         </div>
@@ -266,8 +225,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/05/11/add-git-branch-info/"
-               data-title="Shell 提示符中添加 git branch 信息" data-url="http://andy-yao.me/2015/05/11/add-git-branch-info/">
+          <div class="ds-thread" data-thread-key="2015/12/15/UITableViewCellStyle/"
+               data-title="UITableViewCellStyle" data-url="http://andy-yao.me/2015/12/15/UITableViewCellStyle/">
           </div>
         
       </div>
@@ -359,7 +318,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01_实现方法"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 实现方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_Bash"><span class="nav-number">2.</span> <span class="nav-text">0x10 Bash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x11_expanded"><span class="nav-number">2.1.</span> <span class="nav-text">0x11 expanded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x12_添加_git_branch_信息"><span class="nav-number">2.2.</span> <span class="nav-text">0x12 添加 git branch 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x13_添加颜色"><span class="nav-number">2.3.</span> <span class="nav-text">0x13 添加颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x20_ZSH"><span class="nav-number">3.</span> <span class="nav-text">0x20 ZSH</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00_版本"><span class="nav-number">1.</span> <span class="nav-text">0x00 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10_UITableView"><span class="nav-number">2.</span> <span class="nav-text">0x10 UITableView</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
