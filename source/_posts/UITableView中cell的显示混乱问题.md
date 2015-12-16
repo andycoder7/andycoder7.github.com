@@ -101,3 +101,4 @@ NSString *cellIdentifier = [NSString stringWithFormat:@"cellIdentifier%ld_%ld",(
 
 > ***BTW，本文中对reuse机制的说明都是个人猜测，并不一定是真的。。仅供参考！！***
 
+测试代码参见：[https://github.com/andycoder7/IOStest/tree/UITableViewCellBug/testUITableView](https://github.com/andycoder7/IOStest/tree/UITableViewCellBug/testUITableView)

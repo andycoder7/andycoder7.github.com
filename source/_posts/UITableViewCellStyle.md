@@ -165,4 +165,4 @@ tvc.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, self.view.fr
 
 ![UITableViewCellStyle](/images/uitableviewcellstyle/UITableViewCellStyle.png)
 
-示例的代码:[https://github.com/andycoder7/IOStest/tree/master/testUITableView](https://github.com/andycoder7/IOStest/tree/master/testUITableView)
+示例的代码:[https://github.com/andycoder7/IOStest/tree/UITableViewCellStyle/testUITableView](https://github.com/andycoder7/IOStest/tree/UITableViewCellStyle/testUITableView)
